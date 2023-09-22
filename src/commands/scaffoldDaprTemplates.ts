@@ -30,11 +30,6 @@ const templates: Template[] = [distributedCalculatorTemplate];
 
 
 async function scaffoldDaprTemplates(ui: UserInput): Promise<void> {
-    const rootWorkspaceFolderPath = (vscode.workspace.workspaceFolders ?? [])[0]?.uri?.fsPath;
-
-    if (!rootWorkspaceFolderPath) {
-        throw new Error(localize('commands.scaffoldDaprTasks.noWorkspaceError', 'To scaffold Dapr templates, first open a folder or workspace.'));
-    }
     const templateStep: WizardStep<any> =
         async wizardContext => {
             const templateItems = templates.map(template => ({ label: template.name, template }));

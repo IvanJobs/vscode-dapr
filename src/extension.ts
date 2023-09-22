@@ -49,6 +49,7 @@ import createViewDaprLogsCommand from './commands/applications/viewDaprLogs';
 import createBrowseToApplicationCommand from './commands/applications/browseToApplication';
 import createScaffoldDaprTemplatesCommand from './commands/scaffoldDaprTemplates';
 import createBuildAppCommand from './commands/applications/buildApp';
+import scaffoldTreeDataProvider from './views/scaffold/scaffoldTreeDataProvider';
 
 interface ExtensionPackage {
 	engines: { [key: string]: string };
@@ -65,7 +66,7 @@ function registerAsyncDisposable<T extends AsyncDisposable>(disposable: T): T {
 export function activate(context: vscode.ExtensionContext): Promise<void> {
 	function registerDisposable<T extends vscode.Disposable>(disposable: T): T {
 		context.subscriptions.push(disposable);
-		
+
 		return disposable;
 	}
 
@@ -81,7 +82,7 @@ export function activate(context: vscode.ExtensionContext): Promise<void> {
 		'vscode-dapr.extension.activate',
 		(actionContext: IActionContext) => {
 			actionContext.telemetry.properties.isActivationEvent = 'true';
-			
+
 			const settingsProvider = new VsCodeSettingsProvider();
 			const daprApplicationProvider = new DaprListBasedDaprApplicationProvider(() => settingsProvider.daprPath);
 			const daprClient = new HttpDaprClient(new AxiosHttpClient());
@@ -102,7 +103,7 @@ export function activate(context: vscode.ExtensionContext): Promise<void> {
 				ui);
 			const daprCommandTaskProvider = new DaprCommandTaskProvider(daprInstallationManager, () => settingsProvider.daprPath, telemetryProvider);
 			const daprBuildTaskProvider = new DaprBuildTaskProvider(telemetryProvider)
-			
+
 			telemetryProvider.registerContextCommandWithTelemetry('vscode-dapr.applications.browse', createBrowseToApplicationCommand(ui));
 			telemetryProvider.registerContextCommandWithTelemetry('vscode-dapr.applications.debug', createDebugApplicationCommand());
 			telemetryProvider.registerContextCommandWithTelemetry('vscode-dapr.applications.invoke-get', createInvokeGetCommand(daprApplicationProvider, daprClient, ext.outputChannel, ui, context.workspaceState));
@@ -114,6 +115,7 @@ export function activate(context: vscode.ExtensionContext): Promise<void> {
 			telemetryProvider.registerContextCommandWithTelemetry('vscode-dapr.applications.view-dapr-logs', createViewDaprLogsCommand());
 			telemetryProvider.registerContextCommandWithTelemetry('vscode-dapr.help.readDocumentation', createReadDocumentationCommand(ui));
 			telemetryProvider.registerContextCommandWithTelemetry('vscode-dapr.help.getStarted', createGetStartedCommand(ui));
+			telemetryProvider.registerContextCommandWithTelemetry('vscode-dapr.scaffold.scaffoldNew', createScaffoldDaprTemplatesCommand(ui));
 			telemetryProvider.registerContextCommandWithTelemetry('vscode-dapr.help.installDapr', createInstallDaprCommand(ui));
 			telemetryProvider.registerContextCommandWithTelemetry('vscode-dapr.help.reportIssue', createReportIssueCommand(ui));
 			telemetryProvider.registerContextCommandWithTelemetry('vscode-dapr.help.reviewIssues', createReviewIssuesCommand(ui));
@@ -128,7 +130,7 @@ export function activate(context: vscode.ExtensionContext): Promise<void> {
 			registerDisposable(vscode.tasks.registerTaskProvider('dapr', daprCommandTaskProvider));
 			registerDisposable(vscode.tasks.registerTaskProvider('daprd', new DaprdCommandTaskProvider(daprInstallationManager, () => settingsProvider.daprdPath, new NodeEnvironmentProvider(), telemetryProvider)));
 			registerDisposable(vscode.tasks.registerTaskProvider('daprd-down', new DaprdDownTaskProvider(daprApplicationProvider, telemetryProvider)));
-			
+
 			registerDisposable(vscode.debug.registerDebugConfigurationProvider('dapr', new DaprDebugConfigurationProvider(daprApplicationProvider, ui)));
 
 			const applicationsTreeView = registerDisposable(
@@ -159,9 +161,14 @@ export function activate(context: vscode.ExtensionContext): Promise<void> {
 				vscode.window.registerTreeDataProvider(
 					'vscode-dapr.views.help',
 					new HelpTreeDataProvider()));
-		
+
+			registerDisposable(
+				vscode.window.registerTreeDataProvider(
+					'vscode-dapr.views.scaffold',
+					new scaffoldTreeDataProvider()));
+
 			return Promise.resolve();
-	});
+		});
 }
 
 export async function deactivate(): Promise<void> {

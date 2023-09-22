@@ -22,6 +22,8 @@
     "vscode-dapr.help.reportIssue.title": "Report Issue",
     "vscode-dapr.help.reviewIssues.title": "Review Issues",
 
+    "vscode-dapr.scaffold.scaffoldNew.title": "Scaffold Dapr Templates",
+
     "vscode-dapr.runs.debug.title": "Debug Run",
     "vscode-dapr.runs.start.title": "Start Run",
     "vscode-dapr.runs.stop.title": "Stop Run",
@@ -34,6 +36,7 @@
     "vscode-dapr.tasks.scaffoldDaprTemplates.title": "Scaffold Dapr Templates",
     "vscode-dapr.tasks.openDaprDashboard.title": "Open Dapr Dashboard",
     
+    "vscode-dapr.views.scaffold.name": "Scaffold",
     "vscode-dapr.views.applications.name": "Applications",
     "vscode-dapr.views.applications.contents.notInitialized": "A compatible version of the Dapr runtime has not been found. You may need to install a more recent version.\n[Install Latest Dapr](command:vscode-dapr.help.installDapr)",
     "vscode-dapr.views.applications.contents.notInstalled": "A compatible version of the Dapr CLI has not been found. You may need to install a more recent version.\n[Install Latest Dapr](command:vscode-dapr.help.installDapr)",

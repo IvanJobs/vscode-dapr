@@ -115,6 +115,11 @@
 				"category": "Dapr"
 			},
 			{
+				"command": "vscode-dapr.scaffold.scaffoldNew",
+				"title": "%vscode-dapr.scaffold.scaffoldNew.title%",
+				"category": "Dapr"
+			},
+			{
 				"command": "vscode-dapr.runs.debug",
 				"title": "%vscode-dapr.runs.debug.title%",
 				"category": "Dapr",
@@ -729,6 +734,10 @@
 		],
 		"views": {
 			"dapr-explorer": [
+				{
+					"id": "vscode-dapr.views.scaffold",
+					"name": "%vscode-dapr.views.scaffold.name%"
+				},
 				{
 					"id": "vscode-dapr.views.applications",
 					"name": "%vscode-dapr.views.applications.name%"
