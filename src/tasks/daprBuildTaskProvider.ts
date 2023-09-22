@@ -1,12 +1,9 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import CommandLineBuilder from '../util/commandLineBuilder';
 import CommandTaskProvider from './commandTaskProvider';
-import { DaprTaskDefinition } from './daprCommandTaskProvider';
 import { TelemetryProvider } from '../services/telemetryProvider';
 import { IActionContext } from '@microsoft/vscode-azext-utils';
-import { DaprInstallationManager } from '../services/daprInstallationManager';
 import { TaskDefinition } from 'vscode';
 
 export interface DaprBuildTaskDefinition extends TaskDefinition {

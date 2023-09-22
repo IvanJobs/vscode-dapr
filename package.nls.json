@@ -29,6 +29,8 @@
     "vscode-dapr.builds.start.title": "Build Apps",
     "vscode-dapr.builds.building": "Building",
 
+    "vscode-dapr.deploy.deployToAca.title": "Deploy to Azure Container Apps",
+
     "vscode-dapr.tasks.scaffoldDaprComponents.title": "Scaffold Dapr Components",
     "vscode-dapr.tasks.scaffoldDaprTasks.title": "Scaffold Dapr Tasks",
     "vscode-dapr.tasks.scaffoldDaprTemplates.title": "Scaffold Dapr Templates",

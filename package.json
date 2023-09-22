@@ -131,6 +131,11 @@
 				"category": "Dapr"
 			},
 			{
+				"command": "vscode-dapr.deploy.deployToAca",
+				"title": "%vscode-dapr.deploy.deployToAca.title%",
+				"category": "Dapr"
+			},
+			{
 				"command": "vscode-dapr.runs.stop",
 				"title": "%vscode-dapr.runs.stop.title%",
 				"category": "Dapr",
@@ -247,6 +252,10 @@
 				},
 				{
 					"command": "vscode-dapr.builds.start",
+					"when": "resourceFilename == dapr.yaml"
+				},
+				{
+					"command": "vscode-dapr.deploy.deployToAca",
 					"when": "resourceFilename == dapr.yaml"
 				}
 			],
@@ -806,6 +815,7 @@
 		"eslint": "^8.42.0",
 		"glob": "^10.2.7",
 		"mocha": "^10.2.0",
+		"node-loader": "^2.0.0",
 		"opentelemetry": "^0.1.0",
 		"terser-webpack-plugin": "^5.3.3",
 		"ts-loader": "^9.4.3",
@@ -818,9 +828,17 @@
 		"webpack-cli": "^5.1.4"
 	},
 	"dependencies": {
+		"@azure/arm-appcontainers": "^2.0.0",
+		"@azure/arm-containerregistry": "^10.1.0",
+		"@azure/arm-resources": "^5.2.0",
+		"@azure/container-registry": "^1.1.0",
+		"@azure/identity": "^3.3.0",
+		"@azure/identity-vscode": "^1.0.0",
+		"@azure/storage-blob": "^12.16.0",
 		"@microsoft/vscode-azext-utils": "^2.0.0",
 		"@opentelemetry/api": "^1.4.1",
 		"@opentelemetry/tracing": "^0.24.0",
+		"@types/tar": "^6.1.6",
 		"adm-zip": "^0.5.10",
 		"axios": "^0.27.2",
 		"fs-extra": "^11.1.1",
@@ -831,6 +849,7 @@
 		"ps-list": "^7.2.0",
 		"rxjs": "^7.8.1",
 		"semver": "^7.5.1",
+		"tar": "^6.2.0",
 		"tree-kill": "^1.2.2",
 		"vscode-nls": "^5.2.0"
 	},
