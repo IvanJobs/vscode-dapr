@@ -50,7 +50,7 @@ async function scaffoldDaprTemplates(ui: UserInput): Promise<void> {
     await fs.mkdir(templatePath, { recursive: true });
     const zip = await downloadZip(result.template.url);
     await unzip(zip, templatePath);
-    await vscode.commands.executeCommand('vscode.openFolder', vscode.Uri.file(templatePath), true);
+    await vscode.commands.executeCommand('vscode.openFolder', vscode.Uri.file(templatePath));
 
 }
 
