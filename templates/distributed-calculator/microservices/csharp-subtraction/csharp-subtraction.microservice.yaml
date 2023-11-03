@@ -2,6 +2,7 @@ version: 0.0.1
 name: Subtraction Service
 symbol: subtraction # Used as appId in the context of Dapr
 componentsPath: ./components
+footprintsPath: ./footprints # Used to store intermidiate outputs, for example, provision outputs
 build:
   - type: debug # Reserved values include [debug, release]
     command: dotnet build # One-line command to build this micro-service
