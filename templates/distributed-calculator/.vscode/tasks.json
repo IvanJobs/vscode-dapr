@@ -1,0 +1,51 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "start-sidecar-divideapp",
+        "type": "shell",
+        "command": "dapr",
+        "args": [
+            "run",
+            "--app-id", "divideapp",
+            "--app-port", "4000",
+            "--dapr-http-port", "3502"
+        ],
+        "isBackground": true,
+        "problemMatcher": ["$dapr"]
+      },
+      {
+        "label": "stop-sidecar-divideapp",
+        "type": "shell",
+        "command": "dapr",
+        "args": [
+            "stop",
+            "--app-id", "divideapp"
+        ]
+      },
+      {
+        "label": "start-sidecar-addapp",
+        "type": "shell",
+        "command": "dapr",
+        "args": [
+            "run",
+            "--app-id", "divideapp",
+            "--app-port", "6000",
+            "--dapr-http-port", "3503"
+        ],
+        "isBackground": true,
+        "problemMatcher": ["$dapr"]
+      },
+      {
+        "label": "stop-sidecar-addapp",
+        "type": "shell",
+        "command": "dapr",
+        "args": [
+            "stop",
+            "--app-id", "addapp"
+        ]
+      }
+    ]
+  }
