@@ -48,6 +48,29 @@
             "--app-id", "addapp"
         ],
         "problemMatcher": ["$dapr"]
+      },
+      {
+        "label": "start-sidecar-multiplyapp",
+        "type": "shell",
+        "command": "dapr",
+        "args": [
+            "run",
+            "--app-id", "multiplyapp",
+            "--app-port", "5000",
+            "--dapr-http-port", "3501"
+        ],
+        "isBackground": true,
+        "problemMatcher": ["$dapr"]
+      },
+      {
+        "label": "stop-sidecar-multiplyapp",
+        "type": "shell",
+        "command": "dapr",
+        "args": [
+            "stop",
+            "--app-id", "multiplyapp"
+        ],
+        "problemMatcher": ["$dapr"]
       }
     ]
   }
