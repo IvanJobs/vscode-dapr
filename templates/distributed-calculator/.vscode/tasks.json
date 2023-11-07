@@ -23,7 +23,8 @@
         "args": [
             "stop",
             "--app-id", "divideapp"
-        ]
+        ],
+        "problemMatcher": ["$dapr"]
       },
       {
         "label": "start-sidecar-addapp",
@@ -31,7 +32,7 @@
         "command": "dapr",
         "args": [
             "run",
-            "--app-id", "divideapp",
+            "--app-id", "addapp",
             "--app-port", "6000",
             "--dapr-http-port", "3503"
         ],
@@ -45,7 +46,8 @@
         "args": [
             "stop",
             "--app-id", "addapp"
-        ]
+        ],
+        "problemMatcher": ["$dapr"]
       }
     ]
   }

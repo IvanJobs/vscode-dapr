@@ -1,7 +1,7 @@
 version: 0.0.1
 name: Subtraction Service
 symbol: subtraction # Used as appId in the context of Dapr
-componentsPath: ./components
+daprResourcesPath: ./daprResources # Used to specify micro-service level components path
 footprintsPath: ./footprints # Used to store intermidiate outputs, for example, provision outputs
 build:
   - type: debug # Reserved values include [debug, release]
