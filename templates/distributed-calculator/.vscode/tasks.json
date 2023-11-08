@@ -97,8 +97,45 @@
             "--app-id", "subtractapp"
         ],
         "problemMatcher": ["$dapr"]
-    },
-    {
+      },
+      {
+        "label": "start-sidecar-frontendapp",
+        "type": "shell",
+        "command": "dapr",
+        "args": [
+            "run",
+            "--app-id", "frontendapp",
+            "--app-port", "8080",
+            "--dapr-http-port", "3507",
+            "--components-path", "${workspaceFolder}/daprResources"
+        ],
+        "isBackground": true,
+        "problemMatcher": ["$dapr"],
+        "dependsOn":[
+          //  "buildclient"
+        ]
+      },
+      {
+        "label": "stop-sidecar-frontendapp",
+        "type": "shell",
+        "command": "dapr",
+        "args": [
+            "stop",
+            "--app-id", "frontendapp"
+        ],
+        "problemMatcher": ["$dapr"]
+      },
+      {
+        "label": "buildclient",
+        "command": "npm",
+        "type":"shell",
+        "args": [
+            "--prefix", "${workspaceFolder}/microservices/react-calculator",
+            "run", "buildclient"
+        ],
+        "problemMatcher": "$tsc"
+      },
+      {
         "label": "build",
         "command": "dotnet",
         "type": "process",

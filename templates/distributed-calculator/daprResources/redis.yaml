@@ -1,9 +1,0 @@
-apiVersion: dapr.io/v1alpha1
-kind: Component
-metadata:
-  name: statestore
-spec:
-  type: state.redis
-  metadata:
-    - name: redisHost
-      value: localhost:6379   # Replace with your Redis server's hostname or IP address
