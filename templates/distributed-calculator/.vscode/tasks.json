@@ -106,8 +106,7 @@
             "run",
             "--app-id", "frontendapp",
             "--app-port", "8080",
-            "--dapr-http-port", "3507",
-            "--components-path", "${workspaceFolder}/daprResources"
+            "--dapr-http-port", "3507"
         ],
         "isBackground": true,
         "problemMatcher": ["$dapr"],

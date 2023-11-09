@@ -3,11 +3,22 @@
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
+    "compounds": [
+        {
+          "name": "Launch All",
+          "configurations": [
+            "Launch FrontendApp",  
+            "Launch AddApp", "Launch SubtractApp", "Launch MultiplyApp", "Launch DivideApp"
+          ],
+          "stopAll": true
+        }
+    ],
     "configurations": [
         {
             "name": "Launch FrontendApp",
-            "program": "${workspaceFolder}/microservices/react-calculator/server.js",
+            "program": "server.js",
             "request": "launch",
+            "cwd": "${workspaceFolder}/microservices/react-calculator",
             "skipFiles": [
                 "<node_internals>/**"
             ],
