@@ -1,0 +1,174 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "start-sidecar-divideapp",
+        "type": "shell",
+        "command": "dapr",
+        "args": [
+            "run",
+            "--app-id", "divideapp",
+            "--app-port", "4000",
+            "--dapr-http-port", "3502"
+        ],
+        "isBackground": true,
+        "problemMatcher": ["$dapr"]
+      },
+      {
+        "label": "stop-sidecar-divideapp",
+        "type": "shell",
+        "command": "dapr",
+        "args": [
+            "stop",
+            "--app-id", "divideapp"
+        ],
+        "problemMatcher": ["$dapr"]
+      },
+      {
+        "label": "start-sidecar-addapp",
+        "type": "shell",
+        "command": "dapr",
+        "args": [
+            "run",
+            "--app-id", "addapp",
+            "--app-port", "6000",
+            "--dapr-http-port", "3503"
+        ],
+        "isBackground": true,
+        "problemMatcher": ["$dapr"]
+      },
+      {
+        "label": "stop-sidecar-addapp",
+        "type": "shell",
+        "command": "dapr",
+        "args": [
+            "stop",
+            "--app-id", "addapp"
+        ],
+        "problemMatcher": ["$dapr"]
+      },
+      {
+        "label": "start-sidecar-multiplyapp",
+        "type": "shell",
+        "command": "dapr",
+        "args": [
+            "run",
+            "--app-id", "multiplyapp",
+            "--app-port", "5000",
+            "--dapr-http-port", "3501"
+        ],
+        "isBackground": true,
+        "problemMatcher": ["$dapr"]
+      },
+      {
+        "label": "stop-sidecar-multiplyapp",
+        "type": "shell",
+        "command": "dapr",
+        "args": [
+            "stop",
+            "--app-id", "multiplyapp"
+        ],
+        "problemMatcher": ["$dapr"]
+      },
+      {
+        "label": "start-sidecar-subtractapp",
+        "type": "shell",
+        "command": "dapr",
+        "args": [
+            "run",
+            "--app-id", "subtractapp",
+            "--app-port", "7001",
+            "--dapr-http-port", "3504"
+        ],
+        "isBackground": true,
+        "problemMatcher": ["$dapr"],
+        "dependsOn":[
+            "build"
+        ]
+      },
+      {
+        "label": "stop-sidecar-subtractapp",
+        "type": "shell",
+        "command": "dapr",
+        "args": [
+            "stop",
+            "--app-id", "subtractapp"
+        ],
+        "problemMatcher": ["$dapr"]
+      },
+      {
+        "label": "start-sidecar-frontendapp",
+        "type": "shell",
+        "command": "dapr",
+        "args": [
+            "run",
+            "--app-id", "frontendapp",
+            "--app-port", "8080",
+            "--dapr-http-port", "3507"
+        ],
+        "isBackground": true,
+        "problemMatcher": ["$dapr"],
+        "dependsOn":[
+          //  "buildclient"
+        ]
+      },
+      {
+        "label": "stop-sidecar-frontendapp",
+        "type": "shell",
+        "command": "dapr",
+        "args": [
+            "stop",
+            "--app-id", "frontendapp"
+        ],
+        "problemMatcher": ["$dapr"]
+      },
+      {
+        "label": "buildclient",
+        "command": "npm",
+        "type":"shell",
+        "args": [
+            "--prefix", "${workspaceFolder}/microservices/react-calculator",
+            "run", "buildclient"
+        ],
+        "problemMatcher": "$tsc"
+      },
+      {
+        "label": "build",
+        "command": "dotnet",
+        "type": "process",
+        "args": [
+            "build",
+            "${workspaceFolder}/microservices/csharp-subtraction/Subtract.csproj",
+            "/property:GenerateFullPaths=true",
+            "/consoleloggerparameters:NoSummary;ForceNoAlign"
+        ],
+        "problemMatcher": "$msCompile"
+      },
+      {
+        "label": "publish",
+        "command": "dotnet",
+        "type": "process",
+        "args": [
+            "publish",
+            "${workspaceFolder}/microservices/csharp-subtraction/Subtract.csproj",
+            "/property:GenerateFullPaths=true",
+            "/consoleloggerparameters:NoSummary;ForceNoAlign"
+        ],
+        "problemMatcher": "$msCompile"
+      },
+      {
+        "label": "watch",
+        "command": "dotnet",
+        "type": "process",
+        "args": [
+            "watch",
+            "run",
+            "--project",
+            "${workspaceFolder}/microservices/csharp-subtraction/Subtract.csproj"
+        ],
+        "problemMatcher": "$msCompile"
+      }
+    ]
+  }
