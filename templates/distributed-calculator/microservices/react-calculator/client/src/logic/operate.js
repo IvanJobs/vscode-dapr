@@ -2,13 +2,13 @@ const operationMap = {
   "+": "add",
   "-": "subtract",
   "x": "multiply",
-  "÷": "divide"
+  "/": "divide"
 };
 
 export default async function operate(operandOne, operandTwo, operationSymbol) {
 
-  operandOne = operandOne || "0";
-  operandTwo = operandTwo || (operationSymbol === "÷" || operationSymbol === 'x' ? "1" : "0"); //If dividing or multiplying, then 1 maintains current value in cases of null
+  operandOne = operandOne + '';
+  operandTwo = operandTwo + '';
 
   const operation = operationMap[operationSymbol];
   console.log(`Calling ${operation} service`);
