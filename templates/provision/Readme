@@ -1,0 +1,39 @@
+1. Provisioning resource group
+az deployment sub create \
+  --name createAcaRgDeploy \
+  --name createRg \
+  --location eastus \
+  --template-file createRg.bicep \
+  --parameters resourceGroupName=testAcaRg resourceGroupLocation=eastus
+  
+2. Provisioning container registry
+az deployment group create \
+  --name createAcaAcrDeploy \
+  --resource-group testAcaRg \
+  --template-file createAcr.bicep \
+  --parameters acrName=testAcaAcr \
+  -o tsv --query name
+  
+3. Provisioning user managed identity
+az deployment group create \
+  --name createAcaUmiDeploy \
+  --resource-group testAcaRg \
+  --template-file createUmi.bicep \
+  --parameters acrName=testAcaAcr umiName=aca-test-dapr-kunsun-identity \
+  -o tsv --query properties.outputs.id.value
+  
+4. Provisioning container app environment
+az deployment group create \
+  --name createAcaAppEnvDeploy \
+  --resource-group testAcaRg \
+  --template-file createAcaEnv.bicep \
+  -o tsv --query properties.outputs.id.value
+  
+5. Provisioning container app
+az deployment group create \
+  --name createAcaAppDeploy \
+  --resource-group testAcaRg \
+  --template-file createAcaApp.bicep \
+  --parameters acrName=ascdevmigrationacr \
+    umiId=/subscriptions/bf85658b-2e17-4390-8a60-1772d27ff80d/resourceGroups/testAcaRg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/aca-test-dapr-kunsun-identity \
+    contaierAppEnvId=/subscriptions/bf85658b-2e17-4390-8a60-1772d27ff80d/resourceGroups/testAcaRg/providers/Microsoft.App/managedEnvironments/containerapp-env-kjrvdvttdwp6k
