@@ -6,9 +6,7 @@ import "./App.css";
 
 export default class App extends React.Component {
   state = {
-    total: null,
-    next: null,
-    operation: null,
+    value:''
   };
 
   async componentDidMount() {
@@ -30,11 +28,11 @@ export default class App extends React.Component {
     console.log(`Persisting State:`);
     console.log(JSON.stringify(value));
 
-    const state = [{ 
-      key: "calculatorState", 
-      value 
+    const state = [{
+      key: "calculatorState",
+      value
     }];
-    
+
     fetch("/persist", {
       method: "POST",
       body: JSON.stringify(state),
@@ -43,7 +41,7 @@ export default class App extends React.Component {
       }
     });
   }
-  
+
   getState = async () => {
     const rawResponse = await fetch("/state");
     const calculatorState = await rawResponse.json();
@@ -53,7 +51,7 @@ export default class App extends React.Component {
   render() {
     return (
       <div className="component-app">
-        <Display value={this.state.next || this.state.total || "0"} />
+        <Display value={this.state.value || "0"} />
         <ButtonPanel clickHandler={this.handleClick} />
       </div>
     );
