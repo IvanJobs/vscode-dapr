@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 
 const port = 8080;
-const daprPort = 3507;
+const daprPort = 3500;
 
 const daprUrl = `http://localhost:${daprPort}/v1.0/invoke`;
 

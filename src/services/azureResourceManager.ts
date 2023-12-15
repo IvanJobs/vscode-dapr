@@ -17,9 +17,10 @@ import { PseudoterminalWriter } from '../tasks/taskPseudoterminalWriter';
 export interface AzureResourceManager {
     createResourceGroupIfNotExists(subscriptionId: string, resourceGroupName: string, location: string): Promise<ResourceGroup>
     createContainerAppEnvironmentIfNotExists(subscriptionId: string, resourceGroupName: string, environmentName: string, location: string): Promise<ManagedEnvironment>
+    getContainerAppEnvironment(subscriptionId: string, resourceGroupName: string, environmentName: string): Promise<ManagedEnvironment>
     createOrUpdateContainerApp(subscriptionId: string, resourceGroupName: string, environment: ManagedEnvironment, app: LocalDaprApplication, image: string): Promise<ContainerApp>
     uploadSourceCodeToBlob(subscriptionId: string, resourceGroupName: string, registryName: string, workspace: string): Promise<string>
-    buildImageWithContainerRegistry(subscriptionId: string, resourceGroupName: string, registryName: string, sourceLocation: string, app: LocalDaprApplication, writer: PseudoterminalWriter): Promise<void>
+    buildImageWithContainerRegistry(subscriptionId: string, resourceGroupName: string, registryName: string, sourceLocation: string, image: string, writer: PseudoterminalWriter): Promise<void>
 }
 
 export default class DefaultAzureResourceManager implements AzureResourceManager {
@@ -48,6 +49,11 @@ export default class DefaultAzureResourceManager implements AzureResourceManager
         };
 
         return client.managedEnvironments.get(resourceGroupName, environmentName).then(onExists, onMissing);
+    }
+
+    getContainerAppEnvironment(subscriptionId: string, resourceGroupName: string, environmentName: string): Promise<ManagedEnvironment> {
+        const client = new ContainerAppsAPIClient(this.credential, subscriptionId);
+        return client.managedEnvironments.get(resourceGroupName, environmentName);
     }
 
     createResourceGroupIfNotExists(subscriptionId: string, resourceGroupName: string, location: string): Promise<ResourceGroup> {
@@ -90,6 +96,10 @@ export default class DefaultAzureResourceManager implements AzureResourceManager
                 },
             },
             template: {
+                scale: {
+                    minReplicas: 1,
+                    maxReplicas: 1,
+                },
                 containers: [
                     {
                       name: app.appID,
@@ -102,7 +112,7 @@ export default class DefaultAzureResourceManager implements AzureResourceManager
             envelope.configuration.ingress = {
                 external: app.ingress ?? false,
                 targetPort: app.appPort,
-                allowInsecure: true,
+                allowInsecure: false,
             }
 
         }
@@ -140,7 +150,7 @@ export default class DefaultAzureResourceManager implements AzureResourceManager
         .catch(onUploadFailed)
     }
 
-    async buildImageWithContainerRegistry(subscriptionId: string, resourceGroupName: string, registryName: string, sourceLocation: string, app: LocalDaprApplication, writer: PseudoterminalWriter): Promise<void> {
+    async buildImageWithContainerRegistry(subscriptionId: string, resourceGroupName: string, registryName: string, sourceLocation: string, image: string, writer: PseudoterminalWriter): Promise<void> {
         const client = new ContainerRegistryManagementClient(
             this.credential,
             subscriptionId
@@ -154,7 +164,7 @@ export default class DefaultAzureResourceManager implements AzureResourceManager
             ],
             dockerFilePath: `Dockerfile`,
             sourceLocation: sourceLocation,
-            imageNames: [`${app.appID}:latest`],
+            imageNames: [image],
             isPushEnabled: true,
             noCache: true
         };

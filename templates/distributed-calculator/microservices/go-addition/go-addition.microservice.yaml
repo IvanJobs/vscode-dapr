@@ -1,0 +1,13 @@
+version: 0.0.1
+name: Addition Service
+symbol: addapp # Used as appId in the context of Dapr
+daprResourcesPath: ./daprResources # Used to specify micro-service level components path
+footprintsPath: ./footprints # Used to store intermidiate outputs, for example, provision outputs
+build:
+    command: go build # One-line command to build this micro-service
+    outputPath: ./somepath 
+run:
+    command: go run app.go # One-line command to run this micro-service
+    servicePort: 6000 # Port of the current service
+    sidecarHttpPort: 3504 # Port of sidecar
+  
