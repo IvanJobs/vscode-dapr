@@ -8,7 +8,8 @@ import { getLocalizationPathForFile } from '../../util/localization';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as yaml from 'js-yaml';
-import DaprToAcaTaskProvider, { DaprToAcaTaskDefinition } from '../../tasks/daprToAcaTaskProvider';
+import DaprToAcaTaskProvider, { DaprToAcaTaskDefinition, LocalDaprApplication } from '../../tasks/daprToAcaTaskProvider';
+import { Project, scanFolderForMicroservice } from './buildApp';
 
 const localize = nls.loadMessageBundle(getLocalizationPathForFile(__filename));
 
@@ -17,23 +18,49 @@ export async function deployToAca(runTemplateFile: string, taskProvider: DaprToA
   // Parse the YAML string into an object
   var data = yaml.load(yamlString, {});
 
-  var taskDefinition = data as DaprToAcaTaskDefinition
-  taskDefinition.environment = vscode.workspace.name
-  taskDefinition.workspace = path.dirname(runTemplateFile)
-  const resolvedTask = await taskProvider.resolveTask(
-    new vscode.Task(
-      taskDefinition,
-      vscode.TaskScope.Workspace,
-      `${localize("vscode-dapr.builds.deploying", "deploying")} ${taskDefinition.environment}`,
-      "Dapr"
-    )
-  );
-
-  if (!resolvedTask) {
-    throw new Error(localize('commands.applications.startRun.unresolvedTask', 'Unable to resolve a task for the build.'));
+  var project = data as Project
+  if (!project.microservices.root) {
+      return Promise.reject("micro service project root should defined")
   }
 
-  await vscode.tasks.executeTask(resolvedTask);
+  var deployExecutions: Promise<vscode.TaskExecution>[] = []    
+  var microservices = scanFolderForMicroservice(path.resolve(path.dirname(runTemplateFile), project.microservices.root))
+  for (const ms of microservices) {
+    var local: LocalDaprApplication = {
+      appID: ms.symbol,
+      command: ms.run?.command ?? "",
+      appPort: ms.run?.servicePort,
+      appDirPath: ms.path,
+      daprHTTPPort: ms.run?.sidecarHttpPort?? 8000,
+      dockerfile: path.resolve(ms.path, "Dockerfile"),
+      ingress: true 
+    }
+    var taskDefinition: DaprToAcaTaskDefinition = {
+      type: "dapr-deploy",
+      azure: project.azure,
+      app: local,
+      environment: vscode.workspace.name,
+      workspace: path.dirname(runTemplateFile)
+    }
+    const resolvedTask = await taskProvider.resolveTask(
+      new vscode.Task(
+        taskDefinition,
+        vscode.TaskScope.Workspace,
+        `${localize("vscode-dapr.builds.deploying", "deploying")} ${ms.symbol}`,
+        "Dapr"
+      )
+    );
+  
+    if (!resolvedTask) {
+      throw new Error(localize('commands.applications.startRun.unresolvedTask', 'Unable to resolve a task for the deploy.'));
+    }
+    
+    deployExecutions.push(new Promise((resolve, reject) => {
+      vscode.tasks.executeTask(resolvedTask).then(resolve, reject)
+    }));
+  }
+
+  await Promise.all(deployExecutions);
 }
 
 const createDeployToAcaCommand = (daprToAcaTaskProvider: DaprToAcaTaskProvider) => (context: IActionContext, uri: vscode.Uri): Promise<void> => {

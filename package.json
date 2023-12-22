@@ -257,11 +257,11 @@
 				},
 				{
 					"command": "vscode-dapr.builds.start",
-					"when": "resourceFilename == dapr.yaml"
+					"when": "resourceFilename =~ /microservices.yaml/"
 				},
 				{
 					"command": "vscode-dapr.deploy.deployToAca",
-					"when": "resourceFilename == dapr.yaml"
+					"when": "resourceFilename =~ /microservices.yaml/"
 				}
 			],
 			"view/item/context": [

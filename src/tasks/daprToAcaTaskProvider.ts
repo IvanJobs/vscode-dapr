@@ -5,14 +5,11 @@ import { AzureResourceManager } from "../services/azureResourceManager";
 import { TelemetryProvider } from "../services/telemetryProvider";
 import AzureResourceTaskProvider, { DaprDeployTaskDefinition } from "./azureResourceTaskProvider";
 import { IActionContext } from "@microsoft/vscode-azext-utils";
-import { Process, WrittenOutputHandler } from '../util/process';
-import { workspace } from "vscode";
 import path from "path";
 
 
 export interface DaprToAcaTaskDefinition extends DaprDeployTaskDefinition {
-    apps: LocalDaprApplication[];
-    environment?: string;
+    app: LocalDaprApplication;
     workspace?: string;
 }
 
@@ -36,11 +33,7 @@ export default class DaprToAcaTaskProvider extends AzureResourceTaskProvider {
                 "vscode-dapr.tasks.deploy",
                 async (context: IActionContext) => {
                     const daprDefinition = definition as DaprToAcaTaskDefinition;
-                    if (
-                        !daprDefinition.azure.subscriptionId ||
-                        !daprDefinition.azure.resourceGroup ||
-                        !daprDefinition.azure.location
-                    ) {
+                    if (!daprDefinition.azure.subscription || !daprDefinition.azure.resourceGroup ) {
                         throw new Error(
                             "Azure subscriptionId or resourceGroupName or location could not be null"
                         );
@@ -52,50 +45,43 @@ export default class DaprToAcaTaskProvider extends AzureResourceTaskProvider {
                         );
                     }
 
+                    var environment = await azureResourceManager.getContainerAppEnvironment(daprDefinition.azure.subscription, daprDefinition.azure.resourceGroup, daprDefinition.azure.environment)
+
+                    var app = daprDefinition.app;
+                    writer.writeLine(`[vscode-dapr] uploading source code from ${app.appDirPath}...`)
+                    const sourceLocation = await azureResourceManager.uploadSourceCodeToBlob(
+                        daprDefinition.azure.subscription ?? "",
+                        daprDefinition.azure.containerRegistryResourceGroup ?? daprDefinition.azure.resourceGroup ?? "",
+                        daprDefinition.azure.containerRegistry ?? "",
+                        path.resolve(daprDefinition.workspace??"", app.appDirPath)
+                    )
+                    writer.writeLine(`[vscode-dapr] source code uploaded to ${sourceLocation}`)
+                    writer.writeLine(`[vscode-dapr] building image for ${app.appID}...`)
+                    var imageName = `${app.appID}:${Date.now()}`
+                    await azureResourceManager.buildImageWithContainerRegistry(
+                        daprDefinition.azure.subscription ?? "",
+                        daprDefinition.azure.containerRegistryResourceGroup ?? daprDefinition.azure.resourceGroup ?? "",
+                        daprDefinition.azure.containerRegistry ?? "",
+                        sourceLocation,
+                        imageName,
+                        writer
+                    )
+                    writer.writeLine(`[vscode-dapr] build finished ${app.appID}`)
+
                     writer.writeLine(
-                        `[vscode-dapr] creating or reusing container apps environment ${daprDefinition.environment} under resourceGroup ${daprDefinition.azure.resourceGroup}`
+                        `[vscode-dapr] deploying to container apps ${app.appID} in ${daprDefinition.environment}...`
+                    );
+                    await azureResourceManager.createOrUpdateContainerApp(
+                        daprDefinition.azure.subscription ?? "",
+                        daprDefinition.azure.resourceGroup ?? "",
+                        environment,
+                        app,
+                        `${daprDefinition.azure.containerRegistry}.azurecr.io/${imageName}`
                     );
 
-                    const environment = await azureResourceManager
-                        .createContainerAppEnvironmentIfNotExists(
-                            daprDefinition.azure.subscriptionId,
-                            daprDefinition.azure.resourceGroup,
-                            daprDefinition.environment ?? "",
-                            daprDefinition.azure.location
-                        );
-
-                    for (const app of daprDefinition.apps) {
-                        writer.writeLine(`[vscode-dapr] uploading source code from ${app.appDirPath}...`)
-                        const sourceLocation = await azureResourceManager.uploadSourceCodeToBlob(
-                            daprDefinition.azure.subscriptionId ?? "",
-                            daprDefinition.azure.containerRegistryResourceGroup ?? daprDefinition.azure.resourceGroup ?? "",
-                            daprDefinition.azure.containerRegistry ?? "",
-                            path.resolve(daprDefinition.workspace??"", app.appDirPath)
-                        )
-                        writer.writeLine(`[vscode-dapr] source code uploaded to ${sourceLocation}`)
-                        writer.writeLine(`[vscode-dapr] building image for ${app.appID}...`)
-                        await azureResourceManager.buildImageWithContainerRegistry(
-                            daprDefinition.azure.subscriptionId ?? "",
-                            daprDefinition.azure.containerRegistryResourceGroup ?? daprDefinition.azure.resourceGroup ?? "",
-                            daprDefinition.azure.containerRegistry ?? "",
-                            sourceLocation,
-                            app,
-                            writer
-                        )
-                        writer.writeLine(`[vscode-dapr] build finished ${app.appID}`)
-
-                        writer.writeLine(
-                            `[vscode-dapr] deploying to container apps ${app.appID} in ${daprDefinition.environment}...`
-                        );
-                        await azureResourceManager.createOrUpdateContainerApp(
-                            daprDefinition.azure.subscriptionId ?? "",
-                            daprDefinition.azure.resourceGroup ?? "",
-                            environment,
-                            app,
-                            `${daprDefinition.azure.containerRegistry}.azurecr.io/${app.appID}`
-                        );
-                    }
-
+                    writer.writeLine(
+                        `[vscode-dapr] Container apps ${app.appID} in ${daprDefinition.environment} deployment completed`
+                    );
                     return Promise.resolve()
                 }
             );

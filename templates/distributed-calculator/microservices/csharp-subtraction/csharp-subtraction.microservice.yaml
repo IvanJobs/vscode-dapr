@@ -1,24 +1,15 @@
 version: 0.0.1
 name: Subtraction Service
-symbol: subtraction # Used as appId in the context of Dapr
+symbol: subtractapp # Used as appId in the context of Dapr
 daprResourcesPath: ./daprResources # Used to specify micro-service level components path
 footprintsPath: ./footprints # Used to store intermidiate outputs, for example, provision outputs
 build:
-  - type: debug # Reserved values include [debug, release]
-    command: dotnet build # One-line command to build this micro-service
-    outputPath: ./somepath 
-  - type: release
-    command: dotnet build
+    command: dotnet publish -c Release -o out # One-line command to build this micro-service
     outputPath: ./somepath 
 run:
-  - type: debug
-    command: dotnet run something # One-line command to run this micro-service
-    servicePort: 8080 # Port of the current service
+    command: dotnet run # One-line command to run this micro-service
+    servicePort: 7000 # Port of the current service
     sidecarHttpPort: 3503 # Port of sidecar
-  - type: release
-    command: dotnet run something
-    servicePort: 8080
-    sidecarHttpPort: 3503
 dependsOn:
   - somesymbol
   
