@@ -51,6 +51,7 @@ import createScaffoldDaprTemplatesCommand from './commands/scaffoldDaprTemplates
 import createBuildAppCommand from './commands/applications/buildApp';
 import scaffoldTreeDataProvider from './views/scaffold/scaffoldTreeDataProvider';
 import createDeployToAcaCommand from './commands/applications/deployToAca';
+import createProvisioningCommand from './commands/applications/provisionResources';
 import DaprToAcaTaskProvider from './tasks/daprToAcaTaskProvider';
 import DefaultAzureResourceManager from './services/azureResourceManager';
 import { DefaultAzureCredential } from '@azure/identity';
@@ -128,6 +129,7 @@ export function activate(context: vscode.ExtensionContext): Promise<void> {
 			telemetryProvider.registerContextCommandWithTelemetry('vscode-dapr.runs.debug', createDebugRunCommand());
 			telemetryProvider.registerCommandWithTelemetry('vscode-dapr.runs.start', createStartRunCommand(daprCommandTaskProvider));
 			telemetryProvider.registerCommandWithTelemetry('vscode-dapr.deploy.deployToAca', createDeployToAcaCommand(daprToAcaTaskProvider));
+			telemetryProvider.registerCommandWithTelemetry('vscode-dapr.provision', createProvisioningCommand(daprToAcaTaskProvider));
 			telemetryProvider.registerContextCommandWithTelemetry('vscode-dapr.runs.stop', createStopRunCommand(daprCliClient));
 			telemetryProvider.registerCommandWithTelemetry('vscode-dapr.builds.start', createBuildAppCommand(daprBuildTaskProvider));
 			telemetryProvider.registerCommandWithTelemetry('vscode-dapr.tasks.scaffoldDaprComponents', createScaffoldDaprComponentsCommand(scaffolder, templateScaffolder));

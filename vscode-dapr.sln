@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "templates", "templates", "{2170EB29-05E6-4CE7-94DC-5CBE85B52BA3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "distributed-calculator", "distributed-calculator", "{EDE7E423-D277-46C2-9881-5641C26502D9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "microservices", "microservices", "{A277D06E-788A-4847-96B8-4E754F9E4154}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Subtract", "templates\distributed-calculator\microservices\csharp-subtraction\Subtract.csproj", "{AFAC104E-5954-4337-803F-32392F176627}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AFAC104E-5954-4337-803F-32392F176627}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFAC104E-5954-4337-803F-32392F176627}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFAC104E-5954-4337-803F-32392F176627}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFAC104E-5954-4337-803F-32392F176627}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EDE7E423-D277-46C2-9881-5641C26502D9} = {2170EB29-05E6-4CE7-94DC-5CBE85B52BA3}
+		{A277D06E-788A-4847-96B8-4E754F9E4154} = {EDE7E423-D277-46C2-9881-5641C26502D9}
+		{AFAC104E-5954-4337-803F-32392F176627} = {A277D06E-788A-4847-96B8-4E754F9E4154}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5E0A305D-8DD0-45B2-8B25-DCACED712696}
+	EndGlobalSection
+EndGlobal

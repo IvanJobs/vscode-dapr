@@ -141,6 +141,11 @@
 				"category": "Dapr"
 			},
 			{
+				"command": "vscode-dapr.provision",
+				"title": "%vscode-dapr.provision.title%",
+				"category": "Dapr"
+			},
+			{
 				"command": "vscode-dapr.runs.stop",
 				"title": "%vscode-dapr.runs.stop.title%",
 				"category": "Dapr",
@@ -261,6 +266,10 @@
 				},
 				{
 					"command": "vscode-dapr.deploy.deployToAca",
+					"when": "resourceFilename =~ /microservices.yaml/"
+				},
+				{
+					"command": "vscode-dapr.provision",
 					"when": "resourceFilename =~ /microservices.yaml/"
 				}
 			],
@@ -849,12 +858,13 @@
 		"@opentelemetry/tracing": "^0.24.0",
 		"@types/tar": "^6.1.6",
 		"adm-zip": "^0.5.10",
-		"axios": "^0.27.2",
+		"axios": "^1.6.4",
 		"fs-extra": "^11.1.1",
 		"handlebars": "^4.7.7",
 		"js-yaml": "^4.1.0",
 		"lodash.isequal": "^4.5.0",
 		"original-fs": "^1.2.0",
+		"prettier": "^3.1.1",
 		"ps-list": "^7.2.0",
 		"rxjs": "^7.8.1",
 		"semver": "^7.5.1",

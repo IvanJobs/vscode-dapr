@@ -1,7 +1,6 @@
 1. Provisioning resource group
 az deployment sub create \
-  --name createAcaRgDeploy \
-  --name createRg \
+  --name createRgDeploy \
   --location eastus \
   --template-file createRg.bicep \
   --parameters resourceGroupName=testAcaRg resourceGroupLocation=eastus
