@@ -12,7 +12,7 @@ jobs:
     - name: Zip Templates
       run: |
         cd ./templates/distributed-calculator; 
-        zip -r ../../distributed-calculator.zip ./*; 
+        zip -r ../../distributed-calculator.zip ./* .[!.]*; 
         cd -
     - name: Update GitHub Release
       uses: fnkr/github-action-ghr@v1
