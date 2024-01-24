@@ -12,13 +12,6 @@ const exec = util.promisify(require('node:child_process').exec);
 
 const localize = nls.loadMessageBundle(getLocalizationPathForFile(__filename));
 
-
-async function lsExample() {
-  const { stdout, stderr } = await exec('dir c:');
-  console.log('stdout:', stdout);
-  console.error('stderr:', stderr);
-}
-
 async function execCmd(command: string) {
   const { stdout, stderr } = await exec(command);
 
@@ -41,11 +34,11 @@ export async function provisioningResources(runTemplateFile: string, taskProvide
 
     // creating a resource group
     let command = "az deployment sub create" +
-        " --name createAcaRgDeploy" + 
+        " --name createAcaRgTestDeploy" + 
         " --location southeastasia" + 
         " --template-file " + fileFullPath +
         " --parameters resourceGroupName=" + rgName + 
-        " resourceGroupLocation=sea --debug";
+        " resourceGroupLocation=southeastasia --debug";
 
     console.log("Begin to create resource group... \n");
     if (! await execCmd(command)) {
