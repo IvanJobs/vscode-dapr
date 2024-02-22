@@ -51,7 +51,6 @@ async function scaffoldDaprTemplates(ui: UserInput): Promise<void> {
     const zip = await downloadZip(result.template.url);
     await unzip(zip, templatePath);
     await vscode.commands.executeCommand('vscode.openFolder', vscode.Uri.file(templatePath));
-
 }
 
 async function chooseDirectory(): Promise<vscode.Uri | undefined> {
@@ -68,7 +67,6 @@ async function chooseDirectory(): Promise<vscode.Uri | undefined> {
 async function downloadZip(url: string): Promise<AdmZip> {
     const zip = await axios.get(url, { responseType: "arraybuffer" });
     return new AdmZip(zip.data);
-
 }
 
 async function unzip(

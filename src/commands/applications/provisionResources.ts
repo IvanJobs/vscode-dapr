@@ -29,7 +29,7 @@ async function execCmd(command: string) {
 export async function provisioningResources(runTemplateFile: string, taskProvider: DaprToAcaTaskProvider): Promise<void> {
     const workspace = vscode.workspace.workspaceFolders?.[0];
     let fileName = "createRg.bicep";
-    let fileFullPath = workspace.uri.fsPath + "\\templates\\provision\\" + fileName;
+    let fileFullPath = workspace?.uri.fsPath + "\\templates\\provision\\" + fileName;
     const rgName = "testAcaRg1";
 
     // creating a resource group
@@ -48,7 +48,7 @@ export async function provisioningResources(runTemplateFile: string, taskProvide
     
     console.log("Begin to create all provisioning resources... \n");
     fileName = "main.bicep";
-    fileFullPath = workspace.uri.fsPath + "\\templates\\provision\\" + fileName;
+    fileFullPath = workspace?.uri.fsPath + "\\templates\\provision\\" + fileName;
     //creating a container registry
     command = "az deployment group create " + 
         " --name provisionResourcesDeploy " + 
