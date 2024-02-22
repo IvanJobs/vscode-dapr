@@ -7,7 +7,7 @@
         {
           "name": "Launch All",
           "configurations": [
-            "Launch FrontendApp", "Launch AdditionApp", "Launch SubtractionApp"
+            "Launch CalculatorApp", "Launch AdditionApp", "Launch SubtractionApp"
           ],
           "stopAll": true
         }

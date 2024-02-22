@@ -11,6 +11,7 @@ import axios from 'axios';
 import AdmZip from 'adm-zip';
 import { UserInput, WizardStep } from '../services/userInput';
 import { template } from 'handlebars';
+import moment from 'moment';
 
 const localize = nls.loadMessageBundle(getLocalizationPathForFile(__filename));
 
@@ -46,7 +47,10 @@ async function scaffoldDaprTemplates(ui: UserInput): Promise<void> {
     if (!templateDir) {
         return;
     }
-    const templatePath = path.join(templateDir.fsPath, result.template.label);
+    const date = new Date();
+    const dateString = moment(date).format('YYYYMMDDhhmm');
+
+    const templatePath = path.join(templateDir.fsPath, result.template.label + dateString);
     await fs.mkdir(templatePath, { recursive: true });
     const zip = await downloadZip(result.template.url);
     await unzip(zip, templatePath);
