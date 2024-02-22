@@ -1,0 +1,9 @@
+version: 0.0.1 # For compatibility
+name: Distributed Calculator # Display facing project name
+symbol: distributed-calculator # Used for resource naming
+microservices: # Used to find or indicate multiple microservices
+  root: ./microservices
+  daprResourcesPath: ./daprResources # Used to specify global components path
+infra:
+  root: ./infra
+  kind: azure

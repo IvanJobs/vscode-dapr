@@ -4,171 +4,73 @@
     "version": "2.0.0",
     "tasks": [
       {
-        "label": "start-sidecar-divideapp",
+        "label": "start-sidecar-additionapp",
         "type": "shell",
         "command": "dapr",
         "args": [
             "run",
-            "--app-id", "divideapp",
+            "--app-id", "additionapp",
             "--app-port", "4000",
-            "--dapr-http-port", "3502"
+            "--dapr-http-port", "3505"
         ],
         "isBackground": true,
         "problemMatcher": ["$dapr"]
       },
       {
-        "label": "stop-sidecar-divideapp",
+        "label": "stop-sidecar-additionapp",
         "type": "shell",
         "command": "dapr",
         "args": [
             "stop",
-            "--app-id", "divideapp"
+            "--app-id", "additionapp"
         ],
         "problemMatcher": ["$dapr"]
       },
       {
-        "label": "start-sidecar-addapp",
+        "label": "start-sidecar-subtractionapp",
         "type": "shell",
         "command": "dapr",
         "args": [
             "run",
-            "--app-id", "addapp",
-            "--app-port", "6000",
-            "--dapr-http-port", "3503"
+            "--app-id", "subtractionapp",
+            "--app-port", "5001",
+            "--dapr-http-port", "3506"
         ],
         "isBackground": true,
         "problemMatcher": ["$dapr"]
       },
       {
-        "label": "stop-sidecar-addapp",
+        "label": "stop-sidecar-subtractionapp",
         "type": "shell",
         "command": "dapr",
         "args": [
             "stop",
-            "--app-id", "addapp"
+            "--app-id", "subtractionapp"
         ],
         "problemMatcher": ["$dapr"]
       },
       {
-        "label": "start-sidecar-multiplyapp",
+        "label": "start-sidecar-calculatorapp",
         "type": "shell",
         "command": "dapr",
         "args": [
             "run",
-            "--app-id", "multiplyapp",
-            "--app-port", "5000",
-            "--dapr-http-port", "3501"
-        ],
-        "isBackground": true,
-        "problemMatcher": ["$dapr"]
-      },
-      {
-        "label": "stop-sidecar-multiplyapp",
-        "type": "shell",
-        "command": "dapr",
-        "args": [
-            "stop",
-            "--app-id", "multiplyapp"
-        ],
-        "problemMatcher": ["$dapr"]
-      },
-      {
-        "label": "start-sidecar-subtractapp",
-        "type": "shell",
-        "command": "dapr",
-        "args": [
-            "run",
-            "--app-id", "subtractapp",
-            "--app-port", "7001",
-            "--dapr-http-port", "3504"
-        ],
-        "isBackground": true,
-        "problemMatcher": ["$dapr"],
-        "dependsOn":[
-            "build"
-        ]
-      },
-      {
-        "label": "stop-sidecar-subtractapp",
-        "type": "shell",
-        "command": "dapr",
-        "args": [
-            "stop",
-            "--app-id", "subtractapp"
-        ],
-        "problemMatcher": ["$dapr"]
-      },
-      {
-        "label": "start-sidecar-frontendapp",
-        "type": "shell",
-        "command": "dapr",
-        "args": [
-            "run",
-            "--app-id", "frontendapp",
+            "--app-id", "calculatorapp",
             "--app-port", "8080",
-            "--dapr-http-port", "3507"
+            "--dapr-http-port", "3500"
         ],
         "isBackground": true,
-        "problemMatcher": ["$dapr"],
-        "dependsOn":[
-          //  "buildclient"
-        ]
+        "problemMatcher": ["$dapr"]
       },
       {
-        "label": "stop-sidecar-frontendapp",
+        "label": "stop-sidecar-calculatorapp",
         "type": "shell",
         "command": "dapr",
         "args": [
             "stop",
-            "--app-id", "frontendapp"
+            "--app-id", "calculatorapp"
         ],
         "problemMatcher": ["$dapr"]
-      },
-      {
-        "label": "buildclient",
-        "command": "npm",
-        "type":"shell",
-        "args": [
-            "--prefix", "${workspaceFolder}/microservices/react-calculator",
-            "run", "buildclient"
-        ],
-        "problemMatcher": "$tsc"
-      },
-      {
-        "label": "build",
-        "command": "dotnet",
-        "type": "process",
-        "args": [
-            "build",
-            "${workspaceFolder}/microservices/csharp-subtraction/Subtract.csproj",
-            "/property:GenerateFullPaths=true",
-            "/consoleloggerparameters:NoSummary;ForceNoAlign"
-        ],
-        "problemMatcher": "$msCompile"
-      },
-      {
-        "label": "publish",
-        "command": "dotnet",
-        "type": "process",
-        "args": [
-            "publish",
-            "${workspaceFolder}/microservices/csharp-subtraction/Subtract.csproj",
-            "/property:GenerateFullPaths=true",
-            "/consoleloggerparameters:NoSummary;ForceNoAlign"
-        ],
-        "problemMatcher": "$msCompile"
-      },
-      {
-        "label": "watch",
-        "command": "dotnet",
-        "type": "process",
-        "args": [
-            "watch",
-            "run",
-            "--project",
-            "${workspaceFolder}/microservices/csharp-subtraction/Subtract.csproj"
-        ],
-        "problemMatcher": "$msCompile"
       }
     ]
   }

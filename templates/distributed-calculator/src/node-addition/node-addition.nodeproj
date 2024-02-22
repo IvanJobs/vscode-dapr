@@ -1,0 +1,9 @@
+version: 0.0.1
+name: Addition Service
+symbol: additionapp # Used as appId in the context of Dapr
+daprResourcesPath: ./daprResources # Used to specify micro-service level components path
+run:
+    command: node app.js # One-line command to run this micro-service
+    servicePort: 4000 # Port of the current service
+    sidecarHttpPort: 3505 # Port of sidecar
+  

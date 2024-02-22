@@ -7,54 +7,31 @@
         {
           "name": "Launch All",
           "configurations": [
-            "Launch FrontendApp",  
-            "Launch AddApp", "Launch SubtractApp", "Launch MultiplyApp", "Launch DivideApp"
+            "Launch FrontendApp", "Launch AdditionApp", "Launch SubtractionApp"
           ],
           "stopAll": true
         }
     ],
     "configurations": [
         {
-            "name": "Launch FrontendApp",
+            "name": "Launch CalculatorApp",
             "program": "server.js",
             "request": "launch",
-            "cwd": "${workspaceFolder}/microservices/react-calculator",
+            "cwd": "${workspaceFolder}/src/react-calculator",
             "skipFiles": [
                 "<node_internals>/**"
             ],
             "type": "node",
-            "preLaunchTask": "start-sidecar-frontendapp",
-            "postDebugTask": "stop-sidecar-frontendapp"
+            "preLaunchTask": "start-sidecar-calculatorapp",
+            "postDebugTask": "stop-sidecar-calculatorapp"
         },
         {
-            "name": "Launch SubtractApp",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "start-sidecar-subtractapp",
-            "postDebugTask": "stop-sidecar-subtractapp",
-            "program": "${workspaceFolder}/microservices/csharp-subtraction/bin/Debug/netcoreapp7.0/Subtract.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}",
-            "stopAtEntry": false,
-            "serverReadyAction": {
-                "action": "openExternally",
-                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
-            },
-            "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development",
-                "ASPNETCORE_URLS": "http://localhost:7001/"
-            },
-            "sourceFileMap": {
-                "/Views": "${workspaceFolder}/Views"
-            }
-        },
-        {
-            "name": "Launch MultiplyApp",
+            "name": "Launch SubtractionApp",
             "type": "python",
             "request": "launch",
             "module": "flask",
             "env": {
-                "FLASK_APP": "${workspaceFolder}\\microservices\\python-multiplication\\app.py",
+                "FLASK_APP": "${workspaceFolder}\\src\\python-subtraction\\app.py",
                 "FLASK_DEBUG": "1"
             },
             "args": [
@@ -64,28 +41,19 @@
             ],
             "jinja": true,
             "justMyCode": true,
-            "preLaunchTask": "start-sidecar-multiplyapp",
-            "postDebugTask": "stop-sidecar-multiplyapp"
+            "preLaunchTask": "start-sidecar-subtractionapp",
+            "postDebugTask": "stop-sidecar-subtractionapp"
         },
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch DivideApp",
+            "name": "Launch AdditionApp",
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}\\microservices\\node-division\\app.js",
-            "preLaunchTask": "start-sidecar-divideapp",
-            "postDebugTask": "stop-sidecar-divideapp"
-        },
-        {
-            "type": "go",
-            "request": "launch",
-            "mode": "debug",
-            "name": "Launch AddApp",
-            "program": "${workspaceFolder}\\microservices\\go-addition\\app.go",
-            "preLaunchTask": "start-sidecar-addapp",
-            "postDebugTask": "stop-sidecar-addapp"
+            "program": "${workspaceFolder}\\src\\node-addition\\app.js",
+            "preLaunchTask": "start-sidecar-additionapp",
+            "postDebugTask": "stop-sidecar-additionapp"
         }
     ]
 }

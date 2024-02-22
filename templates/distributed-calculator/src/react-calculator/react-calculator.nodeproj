@@ -1,0 +1,14 @@
+version: 0.0.1
+name: React Calculator
+symbol: calculator # Used as appId in the context of Dapr
+daprResourcesPath: ./daprResources # Used to specify micro-service level components path
+build:
+    command: npm run buildclient # One-line command to build this micro-service
+run:
+    command: npm run start # One-line command to run this micro-service
+    servicePort: 8080 # Port of the current service
+    sidecarHttpPort: 3500 # Port of sidecar
+dependsOn:
+  - additionapp
+  - subtractionapp
+  
