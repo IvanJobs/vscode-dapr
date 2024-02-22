@@ -2,8 +2,7 @@ name: Release VSIX
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ "main" ]
+  
 jobs:
   ReleaseVSIX:
     runs-on: ubuntu-latest
