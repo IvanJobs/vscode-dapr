@@ -44,7 +44,6 @@ jobs:
         connection_string: ${{ secrets.VSDaprTemplatesConnStr }}
         container_name: templates
         source_folder: upload/
-        destination_folder: templates
         delete_if_exists: true
     
     
