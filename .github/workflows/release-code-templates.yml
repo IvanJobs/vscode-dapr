@@ -30,7 +30,7 @@ jobs:
         done &lt; files.txt
 
     - name: Zip Templates
-      if: check_files.outputs.run_job == 'true'
+      if: steps.check_files.outputs.run_job == 'true'
       run: |
         cd ./templates/distributed-calculator; 
         zip -r ../../distributed-calculator.zip ./* .[!.]*; 
@@ -39,7 +39,7 @@ jobs:
         move ./distributed-calculator.zip upload/
 
     - uses: LanceMcCarthy/Action-AzureBlobUpload@v2
-      if: check_files.outputs.run_job == 'true'
+      if: steps.check_files.outputs.run_job == 'true'
       name: Uploading to Azure storage...
       with:
         connection_string: ${{ secrets.VSDaprTemplatesConnStr }}
