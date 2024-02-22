@@ -2,11 +2,14 @@ name: Release Code Templates
 
 on:
   push:
+    tags:
+      - "templates-*"
 
 jobs:
   ZipAndRelease:
     runs-on: ubuntu-latest
     steps:
+
     - name: Check Out Code
       uses: actions/checkout@v3
     - name: Zip Templates
@@ -14,13 +17,14 @@ jobs:
         cd ./templates/distributed-calculator; 
         zip -r ../../distributed-calculator.zip ./* .[!.]*; 
         cd -
+
     - name: Update GitHub Release
       uses: fnkr/github-action-ghr@v1
-      if: startsWith(github.ref, 'refs/tags/templates-')
       env:
           GHR_PATH: ./distributed-calculator.zip
           GHR_DELETE: true
           GHR_REPLACE: true
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+    
     
     

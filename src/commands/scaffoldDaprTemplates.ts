@@ -23,7 +23,7 @@ interface Template {
 const distributedCalculatorTemplate: Template = {
     name: 'Distributed Calculator',
     label: 'distributed-calculator',
-    url: 'https://github.com/IvanJobs/vscode-dapr/releases/download/templates-0.0.2/distributed-calculator.zip'
+    url: 'https://github.com/IvanJobs/vscode-dapr/releases/download/templates-0.0.1/distributed-calculator.zip'
 };
 
 const templates: Template[] = [distributedCalculatorTemplate];
