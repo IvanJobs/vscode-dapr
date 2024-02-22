@@ -35,7 +35,7 @@ jobs:
         zip -r ../../distributed-calculator.zip ./* .[!.]*; 
         cd -
         mkdir upload
-        move ./distributed-calculator.zip upload/
+        mv ./distributed-calculator.zip upload/
 
     - uses: LanceMcCarthy/Action-AzureBlobUpload@v2
       if: steps.check_files.outputs.run_job == 'true'
