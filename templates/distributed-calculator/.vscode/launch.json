@@ -27,7 +27,7 @@
         },
         {
             "name": "Launch SubtractionApp",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "flask",
             "env": {
