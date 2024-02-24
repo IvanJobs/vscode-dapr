@@ -14,7 +14,16 @@
             "--dapr-http-port", "3505"
         ],
         "isBackground": true,
-        "problemMatcher": ["$dapr"]
+        "problemMatcher": {
+          "pattern": [
+            {
+                "regexp": "^.*$",
+                "file": 0,
+                "location": 1,
+                "message": 2
+            }
+          ]
+        }
       },
       {
         "label": "stop-sidecar-additionapp",
@@ -24,7 +33,16 @@
             "stop",
             "--app-id", "additionapp"
         ],
-        "problemMatcher": ["$dapr"]
+        "problemMatcher": {
+          "pattern": [
+            {
+                "regexp": "^.*$",
+                "file": 0,
+                "location": 1,
+                "message": 2
+            }
+          ]
+        }
       },
       {
         "label": "start-sidecar-subtractionapp",
@@ -37,7 +55,16 @@
             "--dapr-http-port", "3506"
         ],
         "isBackground": true,
-        "problemMatcher": ["$dapr"]
+        "problemMatcher": {
+          "pattern": [
+            {
+                "regexp": "^.*$",
+                "file": 0,
+                "location": 1,
+                "message": 2
+            }
+          ]
+        }
       },
       {
         "label": "stop-sidecar-subtractionapp",
@@ -47,7 +74,16 @@
             "stop",
             "--app-id", "subtractionapp"
         ],
-        "problemMatcher": ["$dapr"]
+        "problemMatcher": {
+          "pattern": [
+            {
+                "regexp": "^.*$",
+                "file": 0,
+                "location": 1,
+                "message": 2
+            }
+          ]
+        }
       },
       {
         "label": "start-sidecar-calculatorapp",
@@ -60,7 +96,16 @@
             "--dapr-http-port", "3500"
         ],
         "isBackground": true,
-        "problemMatcher": ["$dapr"]
+        "problemMatcher": {
+          "pattern": [
+            {
+                "regexp": "^.*$",
+                "file": 0,
+                "location": 1,
+                "message": 2
+            }
+          ]
+        }
       },
       {
         "label": "stop-sidecar-calculatorapp",
@@ -70,7 +115,16 @@
             "stop",
             "--app-id", "calculatorapp"
         ],
-        "problemMatcher": ["$dapr"]
+        "problemMatcher": {
+          "pattern": [
+            {
+                "regexp": "^.*$",
+                "file": 0,
+                "location": 1,
+                "message": 2
+            }
+          ]
+        }
       }
     ]
   }
