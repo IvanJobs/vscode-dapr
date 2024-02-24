@@ -1,130 +1,170 @@
 {
-    // See https://go.microsoft.com/fwlink/?LinkId=733558
-    // for the documentation about the tasks.json format
-    "version": "2.0.0",
-    "tasks": [
-      {
-        "label": "start-sidecar-additionapp",
-        "type": "shell",
-        "command": "dapr",
-        "args": [
-            "run",
-            "--app-id", "additionapp",
-            "--app-port", "4000",
-            "--dapr-http-port", "3505"
-        ],
-        "isBackground": true,
-        "problemMatcher": {
-          "pattern": [
-            {
-                "regexp": "^.*$",
-                "file": 0,
-                "location": 1,
-                "message": 2
-            }
-          ]
-        }
-      },
-      {
-        "label": "stop-sidecar-additionapp",
-        "type": "shell",
-        "command": "dapr",
-        "args": [
-            "stop",
-            "--app-id", "additionapp"
-        ],
-        "problemMatcher": {
-          "pattern": [
-            {
-                "regexp": "^.*$",
-                "file": 0,
-                "location": 1,
-                "message": 2
-            }
-          ]
-        }
-      },
-      {
-        "label": "start-sidecar-subtractionapp",
-        "type": "shell",
-        "command": "dapr",
-        "args": [
-            "run",
-            "--app-id", "subtractionapp",
-            "--app-port", "5001",
-            "--dapr-http-port", "3506"
-        ],
-        "isBackground": true,
-        "problemMatcher": {
-          "pattern": [
-            {
-                "regexp": "^.*$",
-                "file": 0,
-                "location": 1,
-                "message": 2
-            }
-          ]
-        }
-      },
-      {
-        "label": "stop-sidecar-subtractionapp",
-        "type": "shell",
-        "command": "dapr",
-        "args": [
-            "stop",
-            "--app-id", "subtractionapp"
-        ],
-        "problemMatcher": {
-          "pattern": [
-            {
-                "regexp": "^.*$",
-                "file": 0,
-                "location": 1,
-                "message": 2
-            }
-          ]
-        }
-      },
-      {
-        "label": "start-sidecar-calculatorapp",
-        "type": "shell",
-        "command": "dapr",
-        "args": [
-            "run",
-            "--app-id", "calculatorapp",
-            "--app-port", "8080",
-            "--dapr-http-port", "3500"
-        ],
-        "isBackground": true,
-        "problemMatcher": {
-          "pattern": [
-            {
-                "regexp": "^.*$",
-                "file": 0,
-                "location": 1,
-                "message": 2
-            }
-          ]
-        }
-      },
-      {
-        "label": "stop-sidecar-calculatorapp",
-        "type": "shell",
-        "command": "dapr",
-        "args": [
-            "stop",
-            "--app-id", "calculatorapp"
-        ],
-        "problemMatcher": {
-          "pattern": [
-            {
-                "regexp": "^.*$",
-                "file": 0,
-                "location": 1,
-                "message": 2
-            }
-          ]
-        }
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "start-sidecar-additionapp",
+      "type": "shell",
+      "command": "dapr",
+      "args": [
+          "run",
+          "--app-id", "additionapp",
+          "--app-port", "4000",
+          "--dapr-http-port", "3505"
+      ],
+      "isBackground": true,
+      "dependsOn":[
+        "build-additionapp"
+      ],
+      "problemMatcher": {
+        "pattern": [
+          {
+              "regexp": "^.*$",
+              "file": 0,
+              "location": 1,
+              "message": 2
+          }
+        ]
       }
-    ]
-  }
+    },
+    {
+      "label": "build-additionapp",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "install"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}\\src\\node-addition"
+      }
+    },
+    {
+      "label": "stop-sidecar-additionapp",
+      "type": "shell",
+      "command": "dapr",
+      "args": [
+          "stop",
+          "--app-id", "additionapp"
+      ],
+      "problemMatcher": {
+        "pattern": [
+          {
+              "regexp": "^.*$",
+              "file": 0,
+              "location": 1,
+              "message": 2
+          }
+        ]
+      }
+    },
+    {
+      "label": "start-sidecar-subtractionapp",
+      "type": "shell",
+      "command": "dapr",
+      "args": [
+          "run",
+          "--app-id", "subtractionapp",
+          "--app-port", "5001",
+          "--dapr-http-port", "3506"
+      ],
+      "isBackground": true,
+      "problemMatcher": {
+        "pattern": [
+          {
+              "regexp": "^.*$",
+              "file": 0,
+              "location": 1,
+              "message": 2
+          }
+        ]
+      }
+    },
+    {
+      "label": "stop-sidecar-subtractionapp",
+      "type": "shell",
+      "command": "dapr",
+      "args": [
+          "stop",
+          "--app-id", "subtractionapp"
+      ],
+      "problemMatcher": {
+        "pattern": [
+          {
+              "regexp": "^.*$",
+              "file": 0,
+              "location": 1,
+              "message": 2
+          }
+        ]
+      }
+    },
+    {
+      "label": "start-sidecar-calculatorapp",
+      "type": "shell",
+      "command": "dapr",
+      "args": [
+          "run",
+          "--app-id", "calculatorapp",
+          "--app-port", "8080",
+          "--dapr-http-port", "3500"
+      ],
+      "isBackground": true,
+      "dependsOn": [
+        "build-calculatorapp-server",
+        "build-calculatorapp-client"
+      ],
+      "problemMatcher": {
+        "pattern": [
+          {
+              "regexp": "^.*$",
+              "file": 0,
+              "location": 1,
+              "message": 2
+          }
+        ]
+      }
+    },
+    {
+      "label": "build-calculatorapp-server",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "install"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}\\src\\react-calculator"
+      }
+    },
+    {
+      "label": "build-calculatorapp-client",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "run buildclient"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}\\src\\react-calculator"
+      }
+    },
+    {
+      "label": "stop-sidecar-calculatorapp",
+      "type": "shell",
+      "command": "dapr",
+      "args": [
+          "stop",
+          "--app-id", "calculatorapp"
+      ],
+      "problemMatcher": {
+        "pattern": [
+          {
+              "regexp": "^.*$",
+              "file": 0,
+              "location": 1,
+              "message": 2
+          }
+        ]
+      }
+    }
+  ]
+}
