@@ -9,6 +9,10 @@ export default class App extends React.Component {
     value:''
   };
 
+  async componentDidMount() {
+    this.setState({ value: '' });
+  }
+
   handleClick = async (buttonName) => {
     let value = await calculate(this.state, buttonName);
     this.setState(value);
@@ -17,7 +21,7 @@ export default class App extends React.Component {
   render() {
     return (
       <div className="component-app">
-        <Display value="0"/>
+        <Display value={this.state.value || "0"} />
         <ButtonPanel clickHandler={this.handleClick} />
       </div>
     );

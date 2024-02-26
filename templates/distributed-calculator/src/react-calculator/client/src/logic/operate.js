@@ -1,6 +1,6 @@
 const operationMap = {
   "+": "add",
-  "-": "subtract",
+  "-": "subtract"
 };
 
 export default async function operate(operandOne, operandTwo, operationSymbol) {

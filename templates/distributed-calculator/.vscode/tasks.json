@@ -141,7 +141,8 @@
       "type": "shell",
       "command": "npm",
       "args": [
-        "run buildclient"
+        "run",
+        "buildclient"
       ],
       "options": {
         "cwd": "${workspaceFolder}\\src\\react-calculator"

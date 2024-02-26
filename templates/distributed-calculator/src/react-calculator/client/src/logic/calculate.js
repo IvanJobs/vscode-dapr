@@ -26,7 +26,7 @@ export default async function calculate(obj, buttonName) {
     }
   }
   if (buttonName === "=") {
-    const res =await calculateMathString(obj.value);
+    const res=await calculateMathString(obj.value);
     return {
       value: res.toString()
     };
