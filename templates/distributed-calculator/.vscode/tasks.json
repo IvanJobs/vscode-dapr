@@ -7,7 +7,7 @@
       "label": "Build & Start Local Services",
       "dependsOn":[
         "Validate prerequisites",
-        "Build All Local Services",
+        "Build Local Services",
         "Start Local Services"
       ],
       "dependsOrder": "sequence"
