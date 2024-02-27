@@ -61,7 +61,10 @@
       "type": "shell",
       "command": [
         "npm", "install"
-      ]
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/src/react-calculator"
+      }
     },
     {
       "label": "Build CalculatorApp Client",
