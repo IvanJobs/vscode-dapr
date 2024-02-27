@@ -46,7 +46,7 @@
         "npm", "install"
       ],
       "options": {
-        "cwd": "{workspaceFolder}/src/node-addition"
+        "cwd": "${workspaceFolder}/src/node-addition"
       }
     },
     {
@@ -70,7 +70,7 @@
         "npm", "run", "buildclient"
       ],
       "options": {
-        "cwd": "{workspaceFolder}/src/react-calculator"
+        "cwd": "${workspaceFolder}/src/react-calculator"
       }
     },
     {
@@ -96,7 +96,9 @@
       "command":[
         "npm", "run", "server"
       ],
-      "dependsOrder":"parallel"
+      "options": {
+        "cwd": "${workspaceFolder}/src/react-calculator"
+      }
     },
     {
       "label": "Start Sidecar for AdditionApp",
@@ -117,8 +119,9 @@
         "node", "app.js"
       ],
       "options": {
-        "cwd": "{workspaceFolder}/src/node-addition"
-      }
+        "cwd": "${workspaceFolder}/src/node-addition"
+      },
+      "isBackground": true
     },
     {
       "label": "stop-sidecar-additionapp",
@@ -169,7 +172,7 @@
       ],
       "isBackground": true,
       "options": {
-        "cwd": "{workspaceFolder}/src/python-subtraction"
+        "cwd": "${workspaceFolder}/src/python-subtraction"
       }
     },
     {
