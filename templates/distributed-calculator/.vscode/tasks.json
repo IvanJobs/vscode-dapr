@@ -4,7 +4,102 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "start-sidecar-additionapp",
+      "label": "Build & Start Local Services",
+      "dependsOn":[
+        "Validate prerequisites",
+        "Build All Local Services",
+        "Start Local Services"
+      ],
+      "dependsOrder": "sequence"
+    },
+    {
+      "label": "Build Local Services",
+      "dependsOn":[
+        "Build AdditionApp",
+        "Build SubtractionApp",
+        "Build CalculatorApp Server",
+        "Build CalculatorApp Client",
+      ],
+      "dependsOrder": "parallel"
+    },
+    {
+      "label": "Start Local Services",
+      "dependsOn":[
+        "Start AdditionApp & Sidecar",
+        "Start SubtractionApp & Sidecar",
+        "Start CalculatorApp Server"
+      ],
+      "dependsOrder": "parallel"
+    },
+    {
+      "label": "Validate prerequisites",
+      "type": "shell",
+      "command":[
+        "echo",
+        "placeholder"
+      ]
+    },
+    {
+      "label": "Build AdditionApp",
+      "type": "shell",
+      "command":[
+        "npm", "install"
+      ],
+      "options": {
+        "cwd": "{workspaceFolder}/src/node-addition"
+      }
+    },
+    {
+      "label": "Build SubtractionApp",
+      "type": "shell",
+      "command":[
+        "echo", "nothing"
+      ]
+    },
+    {
+      "label": "Build CalculatorApp Server",
+      "type": "shell",
+      "command": [
+        "npm", "install"
+      ]
+    },
+    {
+      "label": "Build CalculatorApp Client",
+      "type": "shell",
+      "command":[
+        "npm", "run", "buildclient"
+      ],
+      "options": {
+        "cwd": "{workspaceFolder}/src/react-calculator"
+      }
+    },
+    {
+      "label": "Start AdditionApp & Sidecar",
+      "dependsOn":[
+        "Start Sidecar for AdditionApp",
+        "Start AdditionApp"
+      ],
+      "dependsOrder": "parallel"
+    },
+    {
+      "label": "Start SubtractionApp & Sidecar",
+      "dependsOn":[
+        "Start Sidecar for SubtractionApp",
+        "Start SubtractionApp"
+      ],
+      "dependsOrder": "parallel"
+    },
+    {
+      "label": "Start CalculatorApp Server",
+      "type": "shell",
+      "isBackground": true,
+      "command":[
+        "npm", "run", "server"
+      ],
+      "dependsOrder":"parallel"
+    },
+    {
+      "label": "Start Sidecar for AdditionApp",
       "type": "shell",
       "command": "dapr",
       "args": [
@@ -13,30 +108,16 @@
           "--app-port", "4000",
           "--dapr-http-port", "3505"
       ],
-      "isBackground": true,
-      "dependsOn":[
-        "build-additionapp"
-      ],
-      "problemMatcher": {
-        "pattern": [
-          {
-              "regexp": "^.*$",
-              "file": 0,
-              "location": 1,
-              "message": 2
-          }
-        ]
-      }
+      "isBackground": true
     },
     {
-      "label": "build-additionapp",
+      "label": "Start AdditionApp",
       "type": "shell",
-      "command": "npm",
-      "args": [
-        "install"
+      "command":[
+        "node", "app.js"
       ],
       "options": {
-        "cwd": "${workspaceFolder}\\src\\node-addition"
+        "cwd": "{workspaceFolder}/src/node-addition"
       }
     },
     {
@@ -59,7 +140,7 @@
       }
     },
     {
-      "label": "start-sidecar-subtractionapp",
+      "label": "Start Sidecar for SubtractionApp",
       "type": "shell",
       "command": "dapr",
       "args": [
@@ -78,6 +159,17 @@
               "message": 2
           }
         ]
+      }
+    },
+    {
+      "label": "Start SubtractionApp",
+      "type": "shell",
+      "command":[
+        "python", "app.py"
+      ],
+      "isBackground": true,
+      "options": {
+        "cwd": "{workspaceFolder}/src/python-subtraction"
       }
     },
     {

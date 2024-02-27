@@ -5,14 +5,68 @@
     "version": "0.2.0",
     "compounds": [
         {
-          "name": "Launch All",
+          "name": "Debug All",
           "configurations": [
-            "Launch CalculatorApp", "Launch AdditionApp", "Launch SubtractionApp"
+            "Launch Calculator in Browser",
+            "Attach to CalculatorApp Server",
+            "Attach to AdditionApp",
+            "Attach to SubtractionApp",
           ],
+          "preLaunchTask": "Build & Start Local Services", // Start all local Services, so that we can attach to.
           "stopAll": true
         }
     ],
     "configurations": [
+        {
+            "name": "Launch Calculator in Browser",
+            "type": "msedge",
+            "request": "launch",
+            "url": "https://localhost:8080",
+            "cascadeTerminateToConfigurations": [
+                "Attach to Local Services"
+            ],
+            "presentation": {
+                "group": "all",
+                "hidden": true
+            },
+            "internalConsoleOptions": "neverOpen"
+        },
+        {
+            "name": "Attach to CalculatorApp Server",
+            "type": "node",
+            "request": "attach",
+            "port": 9239,
+            "restart": true,
+            "presentation": {
+                "group": "all",
+                "hidden": true
+            },
+            "internalConsoleOptions": "neverOpen"
+        },
+        {
+            "name": "Attach to AdditionApp",
+            "type": "node",
+            "request": "attach",
+            "port": 9239,
+            "restart": true,
+            "presentation": {
+                "group": "all",
+                "hidden": true
+            },
+            "internalConsoleOptions": "neverOpen"
+        },
+        {
+            "name": "Attach to SubtractionApp",
+            "type": "node",
+            "request": "attach",
+            "port": 9239,
+            "restart": true,
+            "presentation": {
+                "group": "all",
+                "hidden": true
+            },
+            "internalConsoleOptions": "neverOpen"
+        },
         {
             "name": "Launch CalculatorApp",
             "program": "server.js",
