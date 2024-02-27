@@ -27,7 +27,7 @@
       "dependsOn":[
         "Start AdditionApp & Sidecar",
         "Start SubtractionApp & Sidecar",
-        "Start CalculatorApp Server"
+        "Start CalculatorApp Server & Sidecar"
       ],
       "dependsOrder": "parallel"
     },
@@ -89,6 +89,14 @@
       "dependsOn":[
         "Start Sidecar for SubtractionApp",
         "Start SubtractionApp"
+      ],
+      "dependsOrder": "parallel"
+    },
+    {
+      "label": "Start CalculatorApp Server & Sidecar",
+      "dependsOn":[
+        "Start CalculatorApp Server",
+        "Start Sidecar for CalculatorApp"
       ],
       "dependsOrder": "parallel"
     },
@@ -198,7 +206,7 @@
       }
     },
     {
-      "label": "start-sidecar-calculatorapp",
+      "label": "Start Sidecar for CalculatorApp",
       "type": "shell",
       "command": "dapr",
       "args": [
