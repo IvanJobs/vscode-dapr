@@ -18,7 +18,7 @@
         "Build AdditionApp",
         "Build SubtractionApp",
         "Build CalculatorApp Server",
-        //"Build CalculatorApp Client",
+        "Build CalculatorApp Client",
       ],
       "dependsOrder": "parallel"
     },
@@ -37,8 +37,7 @@
       "command":[
         "echo",
         "placeholder"
-      ],
-      "isBackground": true
+      ]
     },
     {
       "label": "Build AdditionApp",
@@ -110,6 +109,16 @@
       ],
       "options": {
         "cwd": "${workspaceFolder}/src/react-calculator"
+      },
+      "problemMatcher": {
+        "pattern": {
+          "regexp": ""
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^\\[nodemon\\] 2\\.0\\.22",
+          "endsPattern": "^Listening on port 8080!"
+        }
       }
     },
     {
@@ -122,7 +131,17 @@
           "--app-port", "4000",
           "--dapr-http-port", "3505"
       ],
-      "isBackground": true
+      "isBackground": true,
+      "problemMatcher": {
+        "pattern": {
+          "regexp": ""
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^WARNING: no application command found\\.",
+          "endsPattern": "^You're up and running! Dapr logs will appear here\\."
+        }
+      }
     },
     {
       "label": "Start AdditionApp",
@@ -133,7 +152,17 @@
       "options": {
         "cwd": "${workspaceFolder}/src/node-addition"
       },
-      "isBackground": true
+      "isBackground": true,
+      "problemMatcher": {
+        "pattern": {
+          "regexp": ""
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^start to serve this app\\.",
+          "endsPattern": "^Listening on port 4000!"
+        }
+      }
     },
     {
       "label": "Start Sidecar for SubtractionApp",
@@ -145,7 +174,17 @@
           "--app-port", "5001",
           "--dapr-http-port", "3506"
       ],
-      "isBackground": true
+      "isBackground": true,
+      "problemMatcher": {
+        "pattern": {
+          "regexp": ""
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^WARNING: no application command found\\.",
+          "endsPattern": "^You're up and running! Dapr logs will appear here\\."
+        }
+      }
     },
     {
       "label": "Start SubtractionApp",
@@ -156,6 +195,16 @@
       "isBackground": true,
       "options": {
         "cwd": "${workspaceFolder}/src/python-subtraction"
+      },
+      "problemMatcher": {
+        "pattern": {
+          "regexp": ""
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^\\* Serving Flask app 'app'",
+          "endsPattern": "^Press CTRL+C to quit"
+        }
       }
     },
     {
@@ -168,7 +217,17 @@
           "--app-port", "8080",
           "--dapr-http-port", "3500"
       ],
-      "isBackground": true
+      "isBackground": true,
+      "problemMatcher": {
+        "pattern": {
+          "regexp": ""
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^WARNING: no application command found\\.",
+          "endsPattern": "^You're up and running! Dapr logs will appear here\\."
+        }
+      }
     }
   ]
 }

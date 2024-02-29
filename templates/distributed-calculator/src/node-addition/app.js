@@ -29,5 +29,5 @@ app.post('/add', (req, res) => {
   let result = operandOne + operandTwo;
   res.send(result.toString());
 });
-
+console.log('start to serve this app.');
 app.listen(port, () => console.log(`Listening on port ${port}!`));
