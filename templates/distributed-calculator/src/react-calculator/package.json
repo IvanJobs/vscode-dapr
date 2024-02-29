@@ -6,7 +6,7 @@
         "server": "nodemon server.js",
         "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
         "start": "node server.js",
-        "buildclient": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+        "buildclient": "cd client && npm install --only=dev --no-shrinkwrap && npm run build"
     },
     "dependencies": {
         "express": "^4.17.3",
