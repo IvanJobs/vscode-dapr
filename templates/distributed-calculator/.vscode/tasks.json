@@ -18,7 +18,7 @@
         "Build AdditionApp",
         "Build SubtractionApp",
         "Build CalculatorApp Server",
-        "Build CalculatorApp Client",
+        //"Build CalculatorApp Client",
       ],
       "dependsOrder": "parallel"
     },
@@ -37,7 +37,8 @@
       "command":[
         "echo",
         "placeholder"
-      ]
+      ],
+      "isBackground": true
     },
     {
       "label": "Build AdditionApp",
@@ -135,25 +136,6 @@
       "isBackground": true
     },
     {
-      "label": "stop-sidecar-additionapp",
-      "type": "shell",
-      "command": "dapr",
-      "args": [
-          "stop",
-          "--app-id", "additionapp"
-      ],
-      "problemMatcher": {
-        "pattern": [
-          {
-              "regexp": "^.*$",
-              "file": 0,
-              "location": 1,
-              "message": 2
-          }
-        ]
-      }
-    },
-    {
       "label": "Start Sidecar for SubtractionApp",
       "type": "shell",
       "command": "dapr",
@@ -163,17 +145,7 @@
           "--app-port", "5001",
           "--dapr-http-port", "3506"
       ],
-      "isBackground": true,
-      "problemMatcher": {
-        "pattern": [
-          {
-              "regexp": "^.*$",
-              "file": 0,
-              "location": 1,
-              "message": 2
-          }
-        ]
-      }
+      "isBackground": true
     },
     {
       "label": "Start SubtractionApp",
@@ -187,25 +159,6 @@
       }
     },
     {
-      "label": "stop-sidecar-subtractionapp",
-      "type": "shell",
-      "command": "dapr",
-      "args": [
-          "stop",
-          "--app-id", "subtractionapp"
-      ],
-      "problemMatcher": {
-        "pattern": [
-          {
-              "regexp": "^.*$",
-              "file": 0,
-              "location": 1,
-              "message": 2
-          }
-        ]
-      }
-    },
-    {
       "label": "Start Sidecar for CalculatorApp",
       "type": "shell",
       "command": "dapr",
@@ -215,63 +168,7 @@
           "--app-port", "8080",
           "--dapr-http-port", "3500"
       ],
-      "isBackground": true,
-      "dependsOn": [
-        "build-calculatorapp-server",
-        "build-calculatorapp-client"
-      ],
-      "problemMatcher": {
-        "pattern": [
-          {
-              "regexp": "^.*$",
-              "file": 0,
-              "location": 1,
-              "message": 2
-          }
-        ]
-      }
-    },
-    {
-      "label": "build-calculatorapp-server",
-      "type": "shell",
-      "command": "npm",
-      "args": [
-        "install"
-      ],
-      "options": {
-        "cwd": "${workspaceFolder}\\src\\react-calculator"
-      }
-    },
-    {
-      "label": "build-calculatorapp-client",
-      "type": "shell",
-      "command": "npm",
-      "args": [
-        "run",
-        "buildclient"
-      ],
-      "options": {
-        "cwd": "${workspaceFolder}\\src\\react-calculator"
-      }
-    },
-    {
-      "label": "stop-sidecar-calculatorapp",
-      "type": "shell",
-      "command": "dapr",
-      "args": [
-          "stop",
-          "--app-id", "calculatorapp"
-      ],
-      "problemMatcher": {
-        "pattern": [
-          {
-              "regexp": "^.*$",
-              "file": 0,
-              "location": 1,
-              "message": 2
-          }
-        ]
-      }
+      "isBackground": true
     }
   ]
 }

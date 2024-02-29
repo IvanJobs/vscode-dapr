@@ -36,7 +36,7 @@ app.post('/calculate/add', async (req, res) => {
 app.post('/calculate/subtract', async (req, res) => {
   try {
       // Invoke Dapr subtract app
-      const appResponse = await axios.post(`${daprUrl}/subtractapp/method/subtract`, req.body);
+      const appResponse = await axios.post(`${daprUrl}/subtractionapp/method/subtract`, req.body);
 
       // Return expected string result to client
       return res.send(`${appResponse.data}`); 

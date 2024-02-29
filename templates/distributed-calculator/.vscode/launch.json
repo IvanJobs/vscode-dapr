@@ -8,9 +8,9 @@
           "name": "Debug All",
           "configurations": [
             "Launch Calculator in Browser",
-            "Attach to CalculatorApp Server",
-            "Attach to AdditionApp",
-            "Attach to SubtractionApp",
+            // "Attach to CalculatorApp Server",
+            // "Attach to AdditionApp",
+            // "Attach to SubtractionApp",
           ],
           "preLaunchTask": "Build & Start Local Services", // Start all local Services, so that we can attach to.
           "stopAll": true
@@ -23,13 +23,10 @@
             "request": "launch",
             "url": "https://localhost:8080",
             "cascadeTerminateToConfigurations": [
-                "Attach to Local Services"
+                "Build & Start Local Services"
             ],
-            "presentation": {
-                "group": "all",
-                "hidden": true
-            },
-            "internalConsoleOptions": "neverOpen"
+            "internalConsoleOptions": "neverOpen",
+            "preLaunchTask": "Build & Start Local Services"
         },
         {
             "name": "Attach to CalculatorApp Server",
@@ -37,10 +34,6 @@
             "request": "attach",
             "port": 8080,
             "restart": true,
-            "presentation": {
-                "group": "all",
-                "hidden": true
-            },
             "internalConsoleOptions": "neverOpen"
         },
         {
@@ -49,65 +42,17 @@
             "request": "attach",
             "port": 4000,
             "restart": true,
-            "presentation": {
-                "group": "all",
-                "hidden": true
-            },
             "internalConsoleOptions": "neverOpen"
         },
         {
             "name": "Attach to SubtractionApp",
-            "type": "node",
+            "type": "debugpy",
             "request": "attach",
-            "port": 5001,
-            "restart": true,
-            "presentation": {
-                "group": "all",
-                "hidden": true
+            "connect": {
+                "host": "127.0.0.1",
+                "port": 5001
             },
             "internalConsoleOptions": "neverOpen"
-        },
-        {
-            "name": "Launch CalculatorApp",
-            "program": "server.js",
-            "request": "launch",
-            "cwd": "${workspaceFolder}/src/react-calculator",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "type": "node",
-            "preLaunchTask": "start-sidecar-calculatorapp",
-            "postDebugTask": "stop-sidecar-calculatorapp"
-        },
-        {
-            "name": "Launch SubtractionApp",
-            "type": "debugpy",
-            "request": "launch",
-            "module": "flask",
-            "env": {
-                "FLASK_APP": "${workspaceFolder}\\src\\python-subtraction\\app.py",
-                "FLASK_DEBUG": "1"
-            },
-            "args": [
-                "run"
-                // "--no-debugger",
-                // "--no-reload"
-            ],
-            "jinja": true,
-            "justMyCode": true,
-            "preLaunchTask": "start-sidecar-subtractionapp",
-            "postDebugTask": "stop-sidecar-subtractionapp"
-        },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Launch AdditionApp",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "program": "${workspaceFolder}\\src\\node-addition\\app.js",
-            "preLaunchTask": "start-sidecar-additionapp",
-            "postDebugTask": "stop-sidecar-additionapp"
         }
     ]
 }
