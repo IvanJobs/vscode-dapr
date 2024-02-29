@@ -8,9 +8,9 @@
           "name": "Debug All",
           "configurations": [
             "Launch Calculator in Browser",
-            // "Attach to CalculatorApp Server",
-            // "Attach to AdditionApp",
-            // "Attach to SubtractionApp",
+            "Attach to CalculatorApp Server",
+            "Attach to AdditionApp",
+            "Attach to SubtractionApp",
           ],
           "preLaunchTask": "Build & Start Local Services", // Start all local Services, so that we can attach to.
           "stopAll": true
@@ -25,8 +25,7 @@
             "cascadeTerminateToConfigurations": [
                 "Build & Start Local Services"
             ],
-            "internalConsoleOptions": "neverOpen",
-            "preLaunchTask": "Build & Start Local Services"
+            "internalConsoleOptions": "neverOpen"
         },
         {
             "name": "Attach to CalculatorApp Server",
