@@ -18,7 +18,7 @@ import math
 import sys
 import os
 
-appPort = "5001"
+appPort = "5000"
 
 app = flask.Flask(__name__)
 CORS(app)
