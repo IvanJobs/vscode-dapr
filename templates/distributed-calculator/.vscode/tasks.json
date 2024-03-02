@@ -4,11 +4,11 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Build & Start Local Services",
+      "label": "Build Services & Start Sidecars",
       "dependsOn":[
         "Validate prerequisites",
         "Build Local Services",
-        "Start Local Services"
+        "Start Local Sidecars"
       ],
       "dependsOrder": "sequence"
     },
@@ -23,11 +23,11 @@
       "dependsOrder": "parallel"
     },
     {
-      "label": "Start Local Services",
+      "label": "Start Local Sidecars",
       "dependsOn":[
-        "Start AdditionApp & Sidecar",
-        "Start SubtractionApp & Sidecar",
-        "Start CalculatorApp Server & Sidecar"
+        "Start Sidecar for AdditionApp",
+        "Start Sidecar for SubtractionApp",
+        "Start Sidecar for CalculatorApp"
       ],
       "dependsOrder": "parallel"
     },
@@ -77,51 +77,6 @@
       }
     },
     {
-      "label": "Start AdditionApp & Sidecar",
-      "dependsOn":[
-        "Start Sidecar for AdditionApp",
-        "Start AdditionApp"
-      ],
-      "dependsOrder": "parallel"
-    },
-    {
-      "label": "Start SubtractionApp & Sidecar",
-      "dependsOn":[
-        "Start Sidecar for SubtractionApp",
-        "Start SubtractionApp"
-      ],
-      "dependsOrder": "parallel"
-    },
-    {
-      "label": "Start CalculatorApp Server & Sidecar",
-      "dependsOn":[
-        "Start CalculatorApp Server",
-        "Start Sidecar for CalculatorApp"
-      ],
-      "dependsOrder": "parallel"
-    },
-    {
-      "label": "Start CalculatorApp Server",
-      "type": "shell",
-      "isBackground": true,
-      "command":[
-        "npm", "run", "server"
-      ],
-      "options": {
-        "cwd": "${workspaceFolder}/src/react-calculator"
-      },
-      "problemMatcher": {
-        "pattern": {
-          "regexp": ""
-        },
-        "background": {
-          "activeOnStart": true,
-          "beginsPattern": "^\\[nodemon\\] 2\\.0\\.22",
-          "endsPattern": "^Listening on port 8080!"
-        }
-      }
-    },
-    {
       "label": "Start Sidecar for AdditionApp",
       "type": "shell",
       "command": "dapr",
@@ -144,27 +99,6 @@
       }
     },
     {
-      "label": "Start AdditionApp",
-      "type": "shell",
-      "command":[
-        "node", "app.js"
-      ],
-      "options": {
-        "cwd": "${workspaceFolder}/src/node-addition"
-      },
-      "isBackground": true,
-      "problemMatcher": {
-        "pattern": {
-          "regexp": ""
-        },
-        "background": {
-          "activeOnStart": true,
-          "beginsPattern": "^start to serve this app\\.",
-          "endsPattern": "^Listening on port 4000!"
-        }
-      }
-    },
-    {
       "label": "Start Sidecar for SubtractionApp",
       "type": "shell",
       "command": "dapr",
@@ -183,27 +117,6 @@
           "activeOnStart": true,
           "beginsPattern": "^WARNING: no application command found\\.",
           "endsPattern": "^You're up and running! Dapr logs will appear here\\."
-        }
-      }
-    },
-    {
-      "label": "Start SubtractionApp",
-      "type": "shell",
-      "command":[
-        "python", "app.py"
-      ],
-      "isBackground": true,
-      "options": {
-        "cwd": "${workspaceFolder}/src/python-subtraction"
-      },
-      "problemMatcher": {
-        "pattern": {
-          "regexp": ""
-        },
-        "background": {
-          "activeOnStart": true,
-          "beginsPattern": "^\\* Serving Flask app 'app'",
-          "endsPattern": "^Press CTRL+C to quit"
         }
       }
     },

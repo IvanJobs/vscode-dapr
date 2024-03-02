@@ -24,10 +24,12 @@ app = flask.Flask(__name__)
 CORS(app)
 
 @app.route('/subtract', methods=['POST'])
-def multiply():
+def subtract():
     content = request.json
     [operand_one, operand_two] = [float(content['operandOne']), float(content['operandTwo'])]
     print(f"Subtract {operand_two} from {operand_one}", flush=True)
     return jsonify(operand_one - operand_two)
 
+print("Starting subtractionapp")
 app.run(host="0.0.0.0",port=appPort)
+print("Started subtractionapp")

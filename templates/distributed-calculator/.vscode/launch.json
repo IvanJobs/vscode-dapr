@@ -8,11 +8,11 @@
           "name": "Debug All",
           "configurations": [
             "Launch Calculator in Browser",
-            "Attach to CalculatorApp Server",
-            "Attach to AdditionApp",
-            "Attach to SubtractionApp",
+            "Launch CalculatorApp Server",
+            "Launch AdditionApp",
+            "Launch SubtractionApp",
           ],
-          "preLaunchTask": "Build & Start Local Services", // Start all local Services, so that we can attach to.
+          "preLaunchTask": "Build Services & Start Sidecars", // Start all local Services, so that we can attach to.
           "stopAll": true
         }
     ],
@@ -21,37 +21,44 @@
             "name": "Launch Calculator in Browser",
             "type": "msedge",
             "request": "launch",
-            "url": "https://localhost:8080",
-            "cascadeTerminateToConfigurations": [
-                "Build & Start Local Services"
+            "url": "http://localhost:8080",
+            "internalConsoleOptions": "neverOpen"
+        },
+        {
+            "name": "Launch CalculatorApp Server",
+            "program": "server.js",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/src/react-calculator",
+            "skipFiles": [
+                "<node_internals>/**"
             ],
-            "internalConsoleOptions": "neverOpen"
+            "type": "node"
         },
         {
-            "name": "Attach to CalculatorApp Server",
-            "type": "node",
-            "request": "attach",
-            "port": 8080,
-            "restart": true,
-            "internalConsoleOptions": "neverOpen"
-        },
-        {
-            "name": "Attach to AdditionApp",
-            "type": "node",
-            "request": "attach",
-            "port": 4000,
-            "restart": true,
-            "internalConsoleOptions": "neverOpen"
-        },
-        {
-            "name": "Attach to SubtractionApp",
+            "name": "Launch SubtractionApp",
             "type": "debugpy",
-            "request": "attach",
-            "connect": {
-                "host": "127.0.0.1",
-                "port": 5001
+            "request": "launch",
+            "module": "flask",
+            "env": {
+                "FLASK_APP": "${workspaceFolder}\\src\\python-subtraction\\app.py",
+                "FLASK_DEBUG": "1"
             },
-            "internalConsoleOptions": "neverOpen"
+            "args": [
+                "run"
+                // "--no-debugger",
+                // "--no-reload"
+            ],
+            "jinja": true,
+            "justMyCode": true
+        },
+        {
+            "name": "Launch AdditionApp",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}\\src\\node-addition\\app.js"
         }
     ]
 }
