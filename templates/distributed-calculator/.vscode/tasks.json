@@ -5,7 +5,7 @@
   "tasks": [
     {
       "label": "Build Services & Start Sidecars",
-      "dependsOn":[
+      "dependsOn": [
         "Validate prerequisites",
         "Build Local Services",
         "Start Local Sidecars"
@@ -14,7 +14,7 @@
     },
     {
       "label": "Build Local Services",
-      "dependsOn":[
+      "dependsOn": [
         "Build AdditionApp",
         "Build SubtractionApp",
         "Build CalculatorApp Server",
@@ -24,7 +24,7 @@
     },
     {
       "label": "Start Local Sidecars",
-      "dependsOn":[
+      "dependsOn": [
         "Start Sidecar for AdditionApp",
         "Start Sidecar for SubtractionApp",
         "Start Sidecar for CalculatorApp"
@@ -33,17 +33,72 @@
     },
     {
       "label": "Validate prerequisites",
+      "dependsOn": [
+        "Validate Dapr",
+        "Validate Node.js",
+        "Validate Python",
+        "Validate flask"
+      ],
+      "dependsOrder": "parallel"
+    },
+    {
+      "label": "Validate Dapr",
       "type": "shell",
-      "command":[
-        "echo",
-        "placeholder"
-      ]
+      "command": "dapr",
+      "args": [
+        "--version"
+      ],
+      "problemMatcher": {
+        "pattern": {
+          "regexp": "dapr"
+        }
+      }
+    },
+    {
+      "label": "Validate Node.js",
+      "type": "shell",
+      "command": "node",
+      "args": [
+        "--version"
+      ],
+      "problemMatcher": {
+        "pattern": {
+          "regexp": "node"
+        }
+      }
+    },
+    {
+      "label": "Validate Python",
+      "type": "shell",
+      "command": "python",
+      "args": [
+        "--version"
+      ],
+      "problemMatcher": {
+        "pattern": {
+          "regexp": "Python"
+        }
+      }
+    },
+    {
+      "label": "Validate flask",
+      "type": "shell",
+      "command": "flask",
+      "args": [
+        "--version"
+      ],
+      "problemMatcher": {
+        "pattern": {
+          "regexp": "flask"
+        }
+      }
     },
     {
       "label": "Build AdditionApp",
       "type": "shell",
-      "command":[
-        "npm", "install"
+      "command": [
+        "npm",
+        "install"
       ],
       "options": {
         "cwd": "${workspaceFolder}/src/node-addition"
@@ -52,15 +107,17 @@
     {
       "label": "Build SubtractionApp",
       "type": "shell",
-      "command":[
-        "echo", "nothing"
+      "command": [
+        "echo",
+        "nothing"
       ]
     },
     {
       "label": "Build CalculatorApp Server",
       "type": "shell",
       "command": [
-        "npm", "install"
+        "npm",
+        "install"
       ],
       "options": {
         "cwd": "${workspaceFolder}/src/react-calculator"
@@ -69,8 +126,10 @@
     {
       "label": "Build CalculatorApp Client",
       "type": "shell",
-      "command":[
-        "npm", "run", "buildclient"
+      "command": [
+        "npm",
+        "run",
+        "buildclient"
       ],
       "options": {
         "cwd": "${workspaceFolder}/src/react-calculator"
@@ -81,10 +140,13 @@
       "type": "shell",
       "command": "dapr",
       "args": [
-          "run",
-          "--app-id", "additionapp",
-          "--app-port", "4000",
-          "--dapr-http-port", "3505"
+        "run",
+        "--app-id",
+        "additionapp",
+        "--app-port",
+        "4000",
+        "--dapr-http-port",
+        "3505"
       ],
       "isBackground": true,
       "problemMatcher": {
@@ -103,10 +165,13 @@
       "type": "shell",
       "command": "dapr",
       "args": [
-          "run",
-          "--app-id", "subtractionapp",
-          "--app-port", "5000",
-          "--dapr-http-port", "3506"
+        "run",
+        "--app-id",
+        "subtractionapp",
+        "--app-port",
+        "5000",
+        "--dapr-http-port",
+        "3506"
       ],
       "isBackground": true,
       "problemMatcher": {
@@ -125,10 +190,13 @@
       "type": "shell",
       "command": "dapr",
       "args": [
-          "run",
-          "--app-id", "calculatorapp",
-          "--app-port", "8080",
-          "--dapr-http-port", "3500"
+        "run",
+        "--app-id",
+        "calculatorapp",
+        "--app-port",
+        "8080",
+        "--dapr-http-port",
+        "3500"
       ],
       "isBackground": true,
       "problemMatcher": {
