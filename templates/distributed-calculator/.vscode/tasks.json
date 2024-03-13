@@ -37,7 +37,9 @@
         "Validate Dapr",
         "Validate Node.js",
         "Validate Python",
-        "Validate flask"
+        "Validate flask",
+        "Validate Docker Runtime",
+        "Validate Docker CLI"
       ],
       "dependsOrder": "parallel"
     },
@@ -92,6 +94,24 @@
           "regexp": "flask"
         }
       }
+    },
+    {
+      "label": "Validate Docker Runtime",
+      "type": "shell",
+      "command": "docker",
+      "args": [
+        "info"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Validate Docker CLI",
+      "type": "shell",
+      "command": "docker",
+      "args": [
+        "--version"
+      ],
+      "problemMatcher": []
     },
     {
       "label": "Build AdditionApp",
