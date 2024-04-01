@@ -7,3 +7,8 @@ microservices: # Used to find or indicate multiple microservices
 infra:
   root: ./infra
   kind: azure
+azure:
+  subscriptionId: bf85658b-2e17-4390-8a60-1772d27ff80d
+  resourceGroup: testAcaRg1
+  containerRegistryName: ksxmmcontainerregistry
+  containerAppEnvName: ksxmmcontainerenv
