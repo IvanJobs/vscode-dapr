@@ -262,15 +262,15 @@
 				},
 				{
 					"command": "vscode-dapr.builds.start",
-					"when": "resourceFilename =~ /microservices.yaml/"
+					"when": "resourceFilename =~ /.solution/"
 				},
 				{
 					"command": "vscode-dapr.deploy.deployToAca",
-					"when": "resourceFilename =~ /microservices.yaml/"
+					"when": "resourceFilename =~ /.solution/"
 				},
 				{
 					"command": "vscode-dapr.provision",
-					"when": "resourceFilename =~ /microservices.yaml/"
+					"when": "resourceFilename =~ /.solution/"
 				}
 			],
 			"view/item/context": [

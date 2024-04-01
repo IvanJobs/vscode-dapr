@@ -15,11 +15,10 @@ export interface DaprDeployTaskDefinition extends TaskDefinition {
 }
 
 export interface Azure {
-    subscription?: string;
+    subscriptionId?: string;
     resourceGroup?: string;
-    environment: string;
-    containerRegistry?: string;
-    containerRegistryResourceGroup?: string;
+    containerAppEnvName: string;
+    containerRegistryName?: string;
 }
 
 export default class AzureResourceTaskProvider extends CustomExecutionTaskProvider {
@@ -29,7 +28,7 @@ export default class AzureResourceTaskProvider extends CustomExecutionTaskProvid
         super(
             (definition, writer, token) => {
                 const daprDefinition = definition as DaprDeployTaskDefinition;
-                if (!daprDefinition.azure || !daprDefinition.azure.subscription || !daprDefinition.azure.resourceGroup) {
+                if (!daprDefinition.azure || !daprDefinition.azure.subscriptionId || !daprDefinition.azure.resourceGroup) {
                     writer.writeLine("[vscode-dapr] subscription or resourceGroup or location cannot be null")
                     return Promise.reject()
                 }

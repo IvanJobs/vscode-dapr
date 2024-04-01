@@ -115,7 +115,7 @@ const createBuildAppCommand = (taskProvider: DaprBuildTaskProvider) => (context:
 }
 
 export const scanFolderForMicroservice = (folder: string): Microservice[] => {
-    var files = findFilesRecursively(folder, /.*\.microservice\.yaml/);
+    var files = findFilesRecursively(folder, /.*\.proj/);
     var microservices: Microservice[] = []
     files.forEach((f: string) => {
         var yamlString = fs.readFileSync(f, 'utf8');
