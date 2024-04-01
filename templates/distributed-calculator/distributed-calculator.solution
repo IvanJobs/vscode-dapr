@@ -2,13 +2,13 @@ version: 0.0.1 # For compatibility
 name: Distributed Calculator # Display facing project name
 symbol: distributed-calculator # Used for resource naming
 microservices: # Used to find or indicate multiple microservices
-  root: ./microservices
+  root: ./src
   daprResourcesPath: ./daprResources # Used to specify global components path
 infra:
   root: ./infra
   kind: azure
 azure:
-  subscriptionId: bf85658b-2e17-4390-8a60-1772d27ff80d
-  resourceGroup: testAcaRg1
-  containerRegistryName: ksxmmcontainerregistry
-  containerAppEnvName: ksxmmcontainerenv
+  subscriptionId: 00000000-0000-0000-0000-000000000000
+  resourceGroup: resourceGroupName
+  containerRegistryName: containerRegistryName
+  containerAppEnvName: containerAppEnvName

@@ -33,7 +33,7 @@ export default class DaprToAcaTaskProvider extends AzureResourceTaskProvider {
                 "vscode-dapr.tasks.deploy",
                 async (context: IActionContext) => {
                     const daprDefinition = definition as DaprToAcaTaskDefinition;
-                    if (!daprDefinition.azure.subscription || !daprDefinition.azure.resourceGroup ) {
+                    if (!daprDefinition.azure.subscriptionId || !daprDefinition.azure.resourceGroup ) {
                         throw new Error(
                             "Azure subscriptionId or resourceGroupName or location could not be null"
                         );
@@ -45,23 +45,23 @@ export default class DaprToAcaTaskProvider extends AzureResourceTaskProvider {
                         );
                     }
 
-                    var environment = await azureResourceManager.getContainerAppEnvironment(daprDefinition.azure.subscription, daprDefinition.azure.resourceGroup, daprDefinition.azure.environment)
+                    var environment = await azureResourceManager.getContainerAppEnvironment(daprDefinition.azure.subscriptionId, daprDefinition.azure.resourceGroup, daprDefinition.azure.containerAppEnvName)
 
                     var app = daprDefinition.app;
                     writer.writeLine(`[vscode-dapr] uploading source code from ${app.appDirPath}...`)
                     const sourceLocation = await azureResourceManager.uploadSourceCodeToBlob(
-                        daprDefinition.azure.subscription ?? "",
-                        daprDefinition.azure.containerRegistryResourceGroup ?? daprDefinition.azure.resourceGroup ?? "",
-                        daprDefinition.azure.containerRegistry ?? "",
+                        daprDefinition.azure.subscriptionId ?? "",
+                        daprDefinition.azure.resourceGroup ?? "",
+                        daprDefinition.azure.containerRegistryName ?? "",
                         path.resolve(daprDefinition.workspace??"", app.appDirPath)
                     )
                     writer.writeLine(`[vscode-dapr] source code uploaded to ${sourceLocation}`)
                     writer.writeLine(`[vscode-dapr] building image for ${app.appID}...`)
                     var imageName = `${app.appID}:${Date.now()}`
                     await azureResourceManager.buildImageWithContainerRegistry(
-                        daprDefinition.azure.subscription ?? "",
-                        daprDefinition.azure.containerRegistryResourceGroup ?? daprDefinition.azure.resourceGroup ?? "",
-                        daprDefinition.azure.containerRegistry ?? "",
+                        daprDefinition.azure.subscriptionId ?? "",
+                        daprDefinition.azure.resourceGroup ?? "",
+                        daprDefinition.azure.containerRegistryName ?? "",
                         sourceLocation,
                         imageName,
                         writer
@@ -72,11 +72,11 @@ export default class DaprToAcaTaskProvider extends AzureResourceTaskProvider {
                         `[vscode-dapr] deploying to container apps ${app.appID} in ${daprDefinition.environment}...`
                     );
                     await azureResourceManager.createOrUpdateContainerApp(
-                        daprDefinition.azure.subscription ?? "",
+                        daprDefinition.azure.subscriptionId ?? "",
                         daprDefinition.azure.resourceGroup ?? "",
                         environment,
                         app,
-                        `${daprDefinition.azure.containerRegistry}.azurecr.io/${imageName}`
+                        `${daprDefinition.azure.containerRegistryName}.azurecr.io/${imageName}`
                     );
 
                     writer.writeLine(
