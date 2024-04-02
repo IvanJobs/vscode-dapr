@@ -131,6 +131,11 @@
 				"category": "Dapr"
 			},
 			{
+				"command": "vscode-dapr.provision",
+				"title": "%vscode-dapr.provision.title%",
+				"category": "Dapr"
+			},
+			{
 				"command": "vscode-dapr.builds.start",
 				"title": "%vscode-dapr.builds.start.title%",
 				"category": "Dapr"
@@ -138,11 +143,6 @@
 			{
 				"command": "vscode-dapr.deploy.deployToAca",
 				"title": "%vscode-dapr.deploy.deployToAca.title%",
-				"category": "Dapr"
-			},
-			{
-				"command": "vscode-dapr.provision",
-				"title": "%vscode-dapr.provision.title%",
 				"category": "Dapr"
 			},
 			{
@@ -261,15 +261,15 @@
 					"when": "resourceFilename == dapr.yaml"
 				},
 				{
+					"command": "vscode-dapr.provision",
+					"when": "resourceFilename =~ /.solution/"
+				},
+				{
 					"command": "vscode-dapr.builds.start",
 					"when": "resourceFilename =~ /.solution/"
 				},
 				{
 					"command": "vscode-dapr.deploy.deployToAca",
-					"when": "resourceFilename =~ /.solution/"
-				},
-				{
-					"command": "vscode-dapr.provision",
 					"when": "resourceFilename =~ /.solution/"
 				}
 			],

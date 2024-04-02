@@ -4,6 +4,6 @@ symbol: subtractionapp # Used as appId in the context of Dapr
 daprResourcesPath: ./daprResources # Used to specify micro-service level components path
 run:
     command: python app.py # One-line command to run this micro-service
-    servicePort: 5001 # Port of the current service
+    servicePort: 5000 # Port of the current service
     sidecarHttpPort: 3506 # Port of sidecar
   

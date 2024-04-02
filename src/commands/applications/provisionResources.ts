@@ -37,6 +37,7 @@ export interface Infra {
 export interface Azure {
   subscriptionId?: string
   resourceGroup?: string
+  location?: string
   containerRegistryName?: string
   containerAppEnvName?: string
 }
@@ -69,10 +70,12 @@ export async function provisioningResources(runTemplateFile: string, taskProvide
         return Promise.reject("no enough definitions of provisioning resources in solution files")
     }
 
+    const subId=solution.azure.subscriptionId;
     const rgName=solution.azure.resourceGroup;
+    const location=solution.azure.location;
 
     // creating a resource group
-    let command = "az group create --name " + rgName + " --location southeastasia";
+    let command = "az group create --name " + rgName + " --subscription " + subId + " --location " + location;
 
     console.log("Begin to create resource group... \n");
     if (! await execCmd(command)) {
@@ -89,9 +92,11 @@ export async function provisioningResources(runTemplateFile: string, taskProvide
     command = "az deployment group create " + 
         " --name provisionResourcesDeploy " + 
         " --resource-group " + rgName +
+        " --subscription " + subId +
         " --template-file " + fileFullPath + 
         " --parameters acrName=" + acrName + 
-        " acaEnvName=" + acaEnvName + " --debug";
+        " acaEnvName=" + acaEnvName +
+        " location=" + location + " --debug";
 
     if (! await execCmd(command)) {
       console.error("Creating container registry unsuccessfully! \n");

@@ -10,5 +10,6 @@ infra:
 azure:
   subscriptionId: 00000000-0000-0000-0000-000000000000
   resourceGroup: resourceGroupName
+  location: location
   containerRegistryName: containerRegistryName
   containerAppEnvName: containerAppEnvName

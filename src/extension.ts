@@ -127,9 +127,9 @@ export function activate(context: vscode.ExtensionContext): Promise<void> {
 			telemetryProvider.registerContextCommandWithTelemetry('vscode-dapr.help.reportIssue', createReportIssueCommand(ui));
 			telemetryProvider.registerContextCommandWithTelemetry('vscode-dapr.help.reviewIssues', createReviewIssuesCommand(ui));
 			telemetryProvider.registerContextCommandWithTelemetry('vscode-dapr.runs.debug', createDebugRunCommand());
+			telemetryProvider.registerCommandWithTelemetry('vscode-dapr.provision', createProvisioningCommand(daprToAcaTaskProvider));
 			telemetryProvider.registerCommandWithTelemetry('vscode-dapr.runs.start', createStartRunCommand(daprCommandTaskProvider));
 			telemetryProvider.registerCommandWithTelemetry('vscode-dapr.deploy.deployToAca', createDeployToAcaCommand(daprToAcaTaskProvider));
-			telemetryProvider.registerCommandWithTelemetry('vscode-dapr.provision', createProvisioningCommand(daprToAcaTaskProvider));
 			telemetryProvider.registerContextCommandWithTelemetry('vscode-dapr.runs.stop', createStopRunCommand(daprCliClient));
 			telemetryProvider.registerCommandWithTelemetry('vscode-dapr.builds.start', createBuildAppCommand(daprBuildTaskProvider));
 			telemetryProvider.registerCommandWithTelemetry('vscode-dapr.tasks.scaffoldDaprComponents', createScaffoldDaprComponentsCommand(scaffolder, templateScaffolder));
